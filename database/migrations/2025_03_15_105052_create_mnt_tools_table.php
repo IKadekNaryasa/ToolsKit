@@ -13,11 +13,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mnt_tools', function (Blueprint $table) {
-            $table->string('namaAlat')->primary();
-            $table->string('kodeAlat')->unique();
+            $table->string('kode_alat')->primary();
+            $table->string('nama_alat');
             $table->text('kondisi');
             $table->enum('status', ['tersedia', 'dipinjam', 'perawatan', 'perbaikan', 'rusak'])->default('tersedia');
-            $table->foreignIdFor(Category::class, 'categoryId')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreignUuid('category_id')->references('category_id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

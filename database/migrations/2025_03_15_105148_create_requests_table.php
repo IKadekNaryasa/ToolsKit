@@ -13,10 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('requests', function (Blueprint $table) {
-            $table->string('requestCode')->primary();
-            $table->foreignIdFor(User::class, 'userId');
+            $table->string('request_code')->primary();
+            $table->foreignUuid('user_id')->references('user_id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ['pending', 'disetujui', 'ditolak'])->default('pending');
-            $table->date('tanggalRequest');
+            $table->date('tanggal_request');
             $table->timestamps();
         });
     }

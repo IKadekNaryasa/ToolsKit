@@ -13,10 +13,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('perbaikan', function (Blueprint $table) {
-            $table->uuid('perbaikanId');
-            $table->foreignIdFor(MntTool::class, 'kodeAlat')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('tanggalPerbaikan');
-            $table->date('tanggalSelesai');
+            $table->uuid('perbaikan_id')->primary();
+            $table->string('kode_alat');
+            $table->foreign('kode_alat')->references('kode_alat')->on('mnt_tools')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->date('tanggal_perbaikan');
+            $table->date('tanggal_selesai');
             $table->text('description');
             $table->enum('status', ['on progres', 'done']);
             $table->string('biaya');

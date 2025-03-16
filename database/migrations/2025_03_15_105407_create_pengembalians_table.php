@@ -14,11 +14,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pengembalian', function (Blueprint $table) {
-            $table->uuid('pengembalianId');
-            $table->foreignIdFor(Peminjaman::class, 'peminjamanCode')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('tanggalKembali');
+            $table->uuid('pengembalian_id')->primary();
+            $table->string('peminjaman_code');
+            $table->foreign('peminjaman_code')->references('peminjaman_code')->on('peminjaman')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->date('tanggal_kembali');
             $table->text('keterangan');
-            $table->foreignIdFor(User::class, 'userId')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('user_id')->references('user_id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ['diajukan', 'disetujui', 'ditolak']);
             $table->timestamps();
         });

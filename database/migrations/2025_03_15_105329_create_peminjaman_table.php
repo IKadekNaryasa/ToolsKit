@@ -13,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('peminjaman', function (Blueprint $table) {
-            $table->string('peminjamanCode')->primary();
-            $table->foreignIdFor(User::class, 'userId')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->date('tanggalPeminjaman');
-            $table->date('tanggalKembali');
+            $table->string('peminjaman_code')->primary();
+            $table->foreignUuid('user_id')->references('user_id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->date('tanggal_peminjaman');
+            $table->date('tanggal_kembali');
             $table->text('keterangan');
             $table->enum('status', ['dipinjam', 'pengajuan_pengembalian', 'dikembalikan'])->default('dipinjam');
-            $table->foreignIdFor(User::class, 'byAdmin')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreignUuid('by_admin')->references('user_id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

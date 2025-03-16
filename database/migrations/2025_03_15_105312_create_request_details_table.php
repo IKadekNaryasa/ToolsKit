@@ -14,9 +14,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('request_details', function (Blueprint $table) {
-            $table->uuid('requestDetailId');
-            $table->foreignIdFor(Request::class, 'requestCode')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(Category::class, 'categoryId')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->uuid('request_detail_id')->primary();
+            $table->string('request_code');
+            $table->foreign('request_code')->references('request_code')->on('requests')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('category_id')->references('category_id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

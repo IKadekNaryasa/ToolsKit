@@ -14,9 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('peminjaman_details', function (Blueprint $table) {
-            $table->uuid('peminjamanDetailId');
-            $table->foreignIdFor(Peminjaman::class, 'peminjamanCode')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(MntTool::class, 'kodeAlat')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->uuid('peminjaman_detail_id')->primary();
+            $table->string('peminjaman_code');
+            $table->foreign('peminjaman_code')->references('peminjaman_code')->on('peminjaman')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('kode_alat');
+            $table->foreign('kode_alat')->references('kode_alat')->on('mnt_tools')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
