@@ -1,3 +1,3 @@
 <x-layout :active="$active" :open="$open" :link="$link">
-    hello
+    pengembalian
 </x-layout>
