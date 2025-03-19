@@ -3,23 +3,26 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MntTool;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ToolController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tools = MntTool::with('category')->get();
-        return $tools;
-        return view('admin.tool.index', [
-            'active' => 'master',
-            'open' => 'tool',
-            'link' => 'Tool | '
-        ]);
+        $users = User::all();
+        return $users;
+        return view(
+            'admin.user.index',
+            [
+                'active' => 'user',
+                'open' => 'user',
+                'link' => 'User | '
+            ]
+        );
     }
 
     /**
@@ -41,7 +44,7 @@ class ToolController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MntTool $mntTool)
+    public function show(User $user)
     {
         //
     }
@@ -49,7 +52,7 @@ class ToolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MntTool $mntTool)
+    public function edit(User $user)
     {
         //
     }
@@ -57,7 +60,7 @@ class ToolController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MntTool $mntTool)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -65,7 +68,7 @@ class ToolController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MntTool $mntTool)
+    public function destroy(User $user)
     {
         //
     }

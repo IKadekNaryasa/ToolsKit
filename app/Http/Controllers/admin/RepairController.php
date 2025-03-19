@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pengembalian;
+use App\Models\Repair;
 use Illuminate\Http\Request;
 
-class PengembalianController extends Controller
+class RepairController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.pengembalian.index', [
-            'active' => 'transaction',
-            'open' => 'pengembalian',
-            'link' => 'Pengembalian | '
+        return view('admin.repair.index', [
+            'active' => 'maintenance',
+            'open' => 'repair',
+            'link' => 'repair | '
         ]);
     }
 
@@ -39,7 +39,7 @@ class PengembalianController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pengembalian $pengembalian)
+    public function show(Repair $repair)
     {
         //
     }
@@ -47,7 +47,7 @@ class PengembalianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pengembalian $pengembalian)
+    public function edit(Repair $repair)
     {
         //
     }
@@ -55,7 +55,7 @@ class PengembalianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pengembalian $pengembalian)
+    public function update(Request $request, Repair $repair)
     {
         //
     }
@@ -63,7 +63,7 @@ class PengembalianController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pengembalian $pengembalian)
+    public function destroy(Repair $repair)
     {
         //
     }

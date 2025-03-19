@@ -9,11 +9,26 @@ class Category extends Model
 {
     use HasFactory;
     protected $table = 'categories';
-    protected $primaryKey = 'category_id';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
-        'category_name',
-        'jumlah'
+        'name',
+        'quantity'
     ];
+
+    public function tools()
+    {
+        return $this->hasMany(MntTool::class, 'category_id');
+    }
+
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class, 'category_id');
+    }
+
+    public function requestDetails()
+    {
+        return $this->hasMany(RequestDetail::class, 'category_id');
+    }
 }

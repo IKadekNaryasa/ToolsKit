@@ -13,10 +13,12 @@ class InventoryController extends Controller
      */
     public function index()
     {
+        $inventories = Inventory::with('category')->get();
         return view('admin.inventory.index', [
             'active' => 'master',
             'open' => 'inventory',
-            'link' => 'Inventory | '
+            'link' => 'Inventory | ',
+            'inventories' => $inventories
         ]);
     }
 

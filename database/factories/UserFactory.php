@@ -24,11 +24,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => Str::uuid(),
+            'id' => Str::uuid(),
             'username' => fake()->unique()->userName(),
             'password' => static::$password ??= Hash::make('12345678'),
-            'kontak' => fake()->phoneNumber(),
-            'nama' => fake()->name(),
+            'contact' => fake()->phoneNumber(),
+            'name' => fake()->name(),
             'role' => 'admin',
             'status' => 'active',
             'remember_token' => Str::random(10),
@@ -48,7 +48,7 @@ class UserFactory extends Factory
     public function teknisi(): static
     {
         return $this->state(fn(array $attributes) => [
-            'role' => 'teknisi',
+            'role' => 'technician',
         ]);
     }
     public function head(): static

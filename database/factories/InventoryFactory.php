@@ -19,13 +19,13 @@ class InventoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'inventory_id' => Str::uuid(),
-            'category_id' => Category::pluck('category_id')->random(),
-            'tanggal_ivn' => date('Y-m-d'),
-            'jumlah_ivn' => 5,
+            'id' => Str::uuid(),
+            'category_id' => Category::pluck('id')->random(),
+            'date' => date('Y-m-d'),
+            'quantity' => 5,
             'vendor' => fake()->sentence(rand(3, 5)),
-            'keterangan' => fake()->text(),
-            'harga' => fake()->randomFloat(2, 50000, 250000),
+            'notes' => fake()->text(),
+            'price' => fake()->randomFloat(2, 50000, 250000),
             'total' => fake()->randomFloat(2, 200000, 10000000),
         ];
     }

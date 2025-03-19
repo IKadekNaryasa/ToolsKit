@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Perbaikan;
+use App\Models\Returns;
 use Illuminate\Http\Request;
 
-class PerbaikanController extends Controller
+class ReturnController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.perbaikan.index', [
-            'active' => 'maintenance',
-            'open' => 'perbaikan',
-            'link' => 'Perbaikan | '
+        return view('admin.return.index', [
+            'active' => 'transaction',
+            'open' => 'return',
+            'link' => 'return | '
         ]);
     }
 
@@ -39,7 +39,7 @@ class PerbaikanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Perbaikan $perbaikan)
+    public function show(Returns $returns)
     {
         //
     }
@@ -47,7 +47,7 @@ class PerbaikanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Perbaikan $perbaikan)
+    public function edit(Returns $returns)
     {
         //
     }
@@ -55,7 +55,7 @@ class PerbaikanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Perbaikan $perbaikan)
+    public function update(Request $request, Returns $returns)
     {
         //
     }
@@ -63,7 +63,7 @@ class PerbaikanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Perbaikan $perbaikan)
+    public function destroy(Returns $returns)
     {
         //
     }

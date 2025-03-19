@@ -19,36 +19,36 @@ class MntToolFactory extends Factory
     public function definition(): array
     {
         return [
-            'kode_alat' => Str::random(5),
-            'nama_alat' => fake()->sentence(rand(1, 2)),
-            'kondisi' => 'Baik',
-            'status' => 'tersedia',
-            'category_id' => Category::pluck('category_id')->random()
+            'tool_code' => fake()->unique()->sentence(),
+            'name' => fake()->sentence(rand(1, 2)),
+            'condition' => 'Baik',
+            'status' => 'available',
+            'category_id' => Category::pluck('id')->random()
         ];
     }
 
     public function perawatan(): static
     {
         return $this->state(fn(array $attributes) => [
-            'status' => 'perawatan',
+            'status' => 'maintenance',
         ]);
     }
     public function perbaikan(): static
     {
         return $this->state(fn(array $attributes) => [
-            'status' => 'perbaikan',
+            'status' => 'repair',
         ]);
     }
     public function rusak(): static
     {
         return $this->state(fn(array $attributes) => [
-            'status' => 'rusak',
+            'status' => 'damaged',
         ]);
     }
     public function dipinjam(): static
     {
         return $this->state(fn(array $attributes) => [
-            'status' => 'dipinjam',
+            'status' => 'borrowed',
         ]);
     }
 }

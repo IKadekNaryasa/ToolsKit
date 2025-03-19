@@ -5,19 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Perbaikan extends Model
+class Repair extends Model
 {
     use HasFactory;
-    protected $table = 'perbaikan';
-    protected $primaryKey = 'perbaikan_id';
+    protected $table = 'repairs';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
-        'kode_alat',
-        'tanggal_perbaikan',
-        'tanggal_selesai',
+        'tool_code',
+        'repair_date',
+        'done_date',
         'description',
         'status',
-        'biaya'
+        'cost'
     ];
+
+    public function tool()
+    {
+        return $this->belongsTo(MntTool::class, 'tool_code');
+    }
 }

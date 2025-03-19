@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Peminjaman;
+use App\Models\Borrowing;
 use Illuminate\Http\Request;
 
-class PeminjamanController extends Controller
+class BorrowingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.peminjaman.index', [
+        return view('admin.borrowing.index', [
             'active' => 'transaction',
-            'open' => 'peminjaman',
-            'link' => 'Peminjaman | '
+            'open' => 'borrowing',
+            'link' => 'borrowing | '
         ]);
     }
 
@@ -39,7 +39,7 @@ class PeminjamanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Peminjaman $peminjaman)
+    public function show(Borrowing $borrowing)
     {
         //
     }
@@ -47,7 +47,7 @@ class PeminjamanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Peminjaman $peminjaman)
+    public function edit(Borrowing $borrowing)
     {
         //
     }
@@ -55,7 +55,7 @@ class PeminjamanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Peminjaman $peminjaman)
+    public function update(Request $request, Borrowing $borrowing)
     {
         //
     }
@@ -63,7 +63,7 @@ class PeminjamanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Peminjaman $peminjaman)
+    public function destroy(Borrowing $borrowing)
     {
         //
     }

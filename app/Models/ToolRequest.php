@@ -14,6 +14,16 @@ class ToolRequest extends Model
         'request_code',
         'user_id',
         'status',
-        'tanggal_request',
+        'request_date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(RequestDetail::class, 'request_code');
+    }
 }

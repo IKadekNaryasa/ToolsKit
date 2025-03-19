@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Category;
-use App\Models\Request;
+use App\Models\MntTool;
+use App\Models\Peminjaman;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('request_details', function (Blueprint $table) {
+        Schema::create('borrowing_details', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('request_code')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignUuid('category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('borrowing_code')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('tool_code');
+            $table->foreign('tool_code')->references('tool_code')->on('mnt_tool')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('request_details');
+        Schema::dropIfExists('borrowing_details');
     }
 };

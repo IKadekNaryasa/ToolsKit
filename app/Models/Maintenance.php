@@ -5,21 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Perawatan extends Model
+class Maintenance extends Model
 {
     use HasFactory;
 
-    protected $table = 'perawatan';
-    protected $primaryKey = 'perawatan_id';
+    protected $table = 'maintenances';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'kode_alat',
-        'tanggal_perawatan',
-        'tanggal_selesai',
+        'tool_code',
+        'maintenance_date',
+        'done_date',
         'description',
         'status',
-        'biaya',
+        'cost'
     ];
+
+    public function tool()
+    {
+        return $this->belongsTo(MntTool::class, 'tool_code');
+    }
 }

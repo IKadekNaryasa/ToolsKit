@@ -9,17 +9,22 @@ class Inventory extends Model
 {
     use HasFactory;
     protected $table = 'inventories';
-    protected $primaryKey = 'inventory_id';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         'category_id',
-        'tanggal_ivn',
-        'jumlah',
+        'date',
+        'quantity',
         'vendor',
-        'keterangan',
-        'harga',
+        'notes',
+        'price',
         'total'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

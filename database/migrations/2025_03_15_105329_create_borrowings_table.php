@@ -12,11 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('requests', function (Blueprint $table) {
-            $table->string('request_code')->primary();
+        Schema::create('borrowings', function (Blueprint $table) {
+            $table->string('borrowing_code')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->date('request_date');
+            $table->date('borrow_date');
+            $table->date('return_date');
+            $table->text('notes');
+            $table->enum('status', ['borrowed', 'return_requested', 'returned'])->default('borrowed');
+            $table->foreignUuid('admin_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('borrowings');
     }
 };

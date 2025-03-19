@@ -110,20 +110,26 @@
                             <div data-i18n="Analytics">Request</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ $active == 'user' ? 'active' : '' }}">
+                        <a href="{{ route('admin.user.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <div data-i18n="Analytics">User</div>
+                        </a>
+                    </li>
                     <li class="menu-item {{ $active == 'transaction' ? 'active open ' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-dock-top"></i>
                             <div data-i18n="Account Settings">Transaction</div>
                         </a>
                         <ul class="menu-sub ">
-                            <li class="menu-item {{ $open == 'peminjaman' ? 'active' : '' }}">
-                                <a href="{{ route('admin.peminjaman.index') }}" class="menu-link">
-                                    <div data-i18n="Account">Peminjaman</div>
+                            <li class="menu-item {{ $open == 'borrowing' ? 'active' : '' }}">
+                                <a href="{{ route('admin.borrowing.index') }}" class="menu-link">
+                                    <div data-i18n="Account">Borrowing</div>
                                 </a>
                             </li>
-                            <li class="menu-item {{ $open == 'pengembalian' ? 'active ' : '' }}">
-                                <a href="{{ route('admin.pengembalian.index') }}" class="menu-link">
-                                    <div data-i18n="Account">Pengembalian</div>
+                            <li class="menu-item {{ $open == 'return' ? 'active ' : '' }}">
+                                <a href="{{ route('admin.return.index') }}" class="menu-link">
+                                    <div data-i18n="Account">Return</div>
                                 </a>
                             </li>
                         </ul>
@@ -134,14 +140,14 @@
                             <div data-i18n="Account Settings">Maintenance Tools</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item {{ $open == 'perbaikan' ? 'active ' : '' }}">
-                                <a href="{{ route('admin.perbaikan.index') }}" class="menu-link">
-                                    <div data-i18n="Account">Perbaikan</div>
+                            <li class="menu-item {{ $open == 'repair' ? 'active ' : '' }}">
+                                <a href="{{ route('admin.repair.index') }}" class="menu-link">
+                                    <div data-i18n="Account">Repair</div>
                                 </a>
                             </li>
-                            <li class="menu-item {{ $open == 'perawatan' ? 'active ' : '' }}">
-                                <a href="{{ route('admin.perawatan.index') }}" class="menu-link">
-                                    <div data-i18n="Account">Perawatan</div>
+                            <li class="menu-item {{ $open == 'maintenance' ? 'active ' : '' }}">
+                                <a href="{{ route('admin.maintenance.index') }}" class="menu-link">
+                                    <div data-i18n="Account">Maintenance</div>
                                 </a>
                             </li>
                         </ul>

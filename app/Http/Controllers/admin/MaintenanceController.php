@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Perawatan;
+use App\Models\Maintenance;
 use Illuminate\Http\Request;
 
-class PerawatanController extends Controller
+class MaintenanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.perawatan.index', [
+        return view('admin.maintenance.index', [
             'active' => 'maintenance',
-            'open' => 'perawatan',
-            'link' => 'Perawatan | '
+            'open' => 'maintenance',
+            'link' => 'maintenance | '
         ]);
     }
 
@@ -39,7 +39,7 @@ class PerawatanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Perawatan $perawatan)
+    public function show(Maintenance $maintenance)
     {
         //
     }
@@ -47,7 +47,7 @@ class PerawatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Perawatan $perawatan)
+    public function edit(Maintenance $maintenance)
     {
         //
     }
@@ -55,7 +55,7 @@ class PerawatanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Perawatan $perawatan)
+    public function update(Request $request, Maintenance $maintenance)
     {
         //
     }
@@ -63,7 +63,7 @@ class PerawatanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Perawatan $perawatan)
+    public function destroy(Maintenance $maintenance)
     {
         //
     }

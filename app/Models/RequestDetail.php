@@ -9,7 +9,7 @@ class RequestDetail extends Model
 {
     use HasFactory;
     protected $table = 'request_details';
-    protected $primaryKey = 'request_detail_id';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -17,4 +17,14 @@ class RequestDetail extends Model
         'request_code',
         'category_id',
     ];
+
+    public function request()
+    {
+        return $this->belongsTo(ToolRequest::class, 'request_code');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

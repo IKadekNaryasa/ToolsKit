@@ -18,9 +18,9 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => Str::uuid(),
-            'category_name' => fake()->unique()->sentence(rand(1, 3)),
-            'jumlah' => 5,
+            'id' => Str::uuid(),
+            'name' => fake()->unique()->sentence(rand(1, 3)),
+            'quantity' => 5,
         ];
     }
 }

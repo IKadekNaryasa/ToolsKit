@@ -13,14 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventories', function (Blueprint $table) {
-            $table->uuid('inventory_id')->primary();
-            $table->foreignUuid('category_id')->references('category_id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('tanggal_ivn');
-            $table->bigInteger('jumlah_ivn');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->date('date');
+            $table->bigInteger('quantity');
             $table->string('vendor');
-            $table->text('keterangan');
-            $table->string('harga');
-            $table->string('total');
+            $table->text('notes');
+            $table->decimal('price', 15, 2);
+            $table->decimal('total', 15, 2);
             $table->timestamps();
         });
     }
