@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('borrowing_code')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('tool_code');
-            $table->foreign('tool_code')->references('tool_code')->on('mnt_tool')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('tool_code')->references('tool_code')->on('tools')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('repairs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('tool_code');
-            $table->foreign('tool_code')->references('tool_code')->on('mnt_tool')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('tool_code')->references('tool_code')->on('tools')->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('repair');
             $table->date('completion_date')->nullable();
             $table->text('description');

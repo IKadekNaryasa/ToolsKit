@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mnt_tools', function (Blueprint $table) {
+        Schema::create('tools', function (Blueprint $table) {
             $table->string('tool_code')->primary();
             $table->string('name');
             $table->text('condition');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mnt_tools');
+        Schema::dropIfExists('tools');
     }
 };

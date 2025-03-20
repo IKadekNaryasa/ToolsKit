@@ -23,6 +23,6 @@ class Repair extends Model
 
     public function tool()
     {
-        return $this->belongsTo(MntTool::class, 'tool_code');
+        return $this->belongsTo(Tool::class, 'tool_code');
     }
 }

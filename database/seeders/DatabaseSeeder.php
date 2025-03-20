@@ -7,6 +7,7 @@ use App\Models\MntTool;
 use App\Models\Category;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Inventory;
+use App\Models\Tool;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,11 +23,11 @@ class DatabaseSeeder extends Seeder
         Category::factory(5)->create();
 
         Inventory::factory(5)->create();
-        MntTool::factory(21)->create();
-        MntTool::factory(1)->perawatan()->create();
-        MntTool::factory(1)->perbaikan()->create();
-        MntTool::factory(1)->rusak()->create();
-        MntTool::factory(1)->dipinjam()->create();
+        Tool::factory(21)->create();
+        Tool::factory(1)->maintenance()->create();
+        Tool::factory(1)->repair()->create();
+        Tool::factory(1)->damaged()->create();
+        Tool::factory(1)->borrowed()->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',

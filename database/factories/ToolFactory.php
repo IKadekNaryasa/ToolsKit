@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MntTool>
  */
-class MntToolFactory extends Factory
+class ToolFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -27,25 +27,25 @@ class MntToolFactory extends Factory
         ];
     }
 
-    public function perawatan(): static
+    public function maintenance(): static
     {
         return $this->state(fn(array $attributes) => [
             'status' => 'maintenance',
         ]);
     }
-    public function perbaikan(): static
+    public function repair(): static
     {
         return $this->state(fn(array $attributes) => [
             'status' => 'repair',
         ]);
     }
-    public function rusak(): static
+    public function damaged(): static
     {
         return $this->state(fn(array $attributes) => [
             'status' => 'damaged',
         ]);
     }
-    public function dipinjam(): static
+    public function borrowed(): static
     {
         return $this->state(fn(array $attributes) => [
             'status' => 'borrowed',

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MntTool extends Model
+class Tool extends Model
 {
     use HasFactory;
-    protected $table = 'mnt_tools';
+    protected $table = 'tools';
     protected $primaryKey = 'tool_code';
     protected $fillable = [
         'tool_code',

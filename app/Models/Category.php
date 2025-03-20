@@ -19,7 +19,7 @@ class Category extends Model
 
     public function tools()
     {
-        return $this->hasMany(MntTool::class, 'category_id');
+        return $this->hasMany(Tool::class, 'category_id');
     }
 
     public function inventories()
