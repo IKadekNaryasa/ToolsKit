@@ -17,7 +17,7 @@ class Returns extends Model
         'borrowing_code',
         'return_date',
         'notes',
-        'user_id',
+        'admin_id',
         'status'
     ];
 

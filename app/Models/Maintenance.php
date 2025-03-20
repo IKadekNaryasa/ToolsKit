@@ -25,6 +25,6 @@ class Maintenance extends Model
 
     public function tool()
     {
-        return $this->belongsTo(Tool::class, 'tool_code');
+        return $this->belongsTo(Tool::class, 'tool_code', 'tool_code');
     }
 }

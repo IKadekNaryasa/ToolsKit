@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('request_details', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('request_code')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('request_code');
+            $table->foreign('request_code')->references('request_code')->on('requests')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });

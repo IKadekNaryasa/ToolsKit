@@ -19,7 +19,7 @@ class ToolFactory extends Factory
     public function definition(): array
     {
         return [
-            'tool_code' => fake()->unique()->sentence(),
+            'tool_code' => fake()->unique()->sentence(1),
             'name' => fake()->sentence(rand(1, 2)),
             'condition' => 'Baik',
             'status' => 'available',

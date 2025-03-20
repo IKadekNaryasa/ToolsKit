@@ -13,10 +13,12 @@ class RepairController extends Controller
      */
     public function index()
     {
+        $repairs = Repair::whereHas('tool', fn($query) => $query->where('status', 'repair'))->get();
         return view('admin.repair.index', [
             'active' => 'maintenance',
             'open' => 'repair',
-            'link' => 'repair | '
+            'link' => 'repair | ',
+            'repairs' => $repairs
         ]);
     }
 

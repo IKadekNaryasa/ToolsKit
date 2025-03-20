@@ -13,10 +13,12 @@ class RequestController extends Controller
      */
     public function index()
     {
+        $requests = ToolRequest::with('user')->get();
         return view('admin.request.index', [
             'active' => 'request',
             'open' => 'request',
-            'link' => 'Request | '
+            'link' => 'Request | ',
+            'requests' => $requests
         ]);
     }
 

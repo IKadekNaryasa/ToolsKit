@@ -10,6 +10,9 @@ class Tool extends Model
     use HasFactory;
     protected $table = 'tools';
     protected $primaryKey = 'tool_code';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'tool_code',
         'name',

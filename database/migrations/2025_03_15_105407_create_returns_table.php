@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('borrowing_code')->references('borrowing_code')->on('borrowings')->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('return_date');
             $table->text('notes');
-            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('admin_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ['requested', 'approved', 'rejected']);
             $table->timestamps();
         });

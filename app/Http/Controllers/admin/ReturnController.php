@@ -13,10 +13,12 @@ class ReturnController extends Controller
      */
     public function index()
     {
+        $returns = Returns::with('borrowing')->get();
         return view('admin.return.index', [
             'active' => 'transaction',
             'open' => 'return',
-            'link' => 'return | '
+            'link' => 'return | ',
+            'returns' => $returns
         ]);
     }
 

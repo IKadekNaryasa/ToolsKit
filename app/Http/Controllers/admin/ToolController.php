@@ -14,11 +14,11 @@ class ToolController extends Controller
     public function index()
     {
         $tools = Tool::with('category')->get();
-        return $tools;
         return view('admin.tool.index', [
             'active' => 'master',
             'open' => 'tool',
-            'link' => 'Tool | '
+            'link' => 'Tool | ',
+            'tools' => $tools
         ]);
     }
 

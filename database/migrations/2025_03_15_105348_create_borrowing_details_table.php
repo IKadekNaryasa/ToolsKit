@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('borrowing_details', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('borrowing_code')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('borrowing_code');
+            $table->foreign('borrowing_code')->references('borrowing_code')->on('borrowings')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('tool_code');
             $table->foreign('tool_code')->references('tool_code')->on('tools')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
