@@ -50,6 +50,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('ikn_sneat') }}/assets/js/config.js"></script>
+
+    <script src="https://kit.fontawesome.com/9254364d26.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -78,13 +80,13 @@
                     <!-- Dashboard -->
                     <li class="menu-item {{ $active == 'dashboard' ? 'active' : '' }} ">
                         <a href="{{ route('admin.dashboard.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <i class="menu-icon fa-solid fa-house fa-sm"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
                     <li class="menu-item {{ $active == 'master' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <i class="menu-icon fa-solid fa-crown fa-sm"></i>
                             <div data-i18n="Account Settings">Master</div>
                         </a>
                         <ul class="menu-sub">
@@ -107,19 +109,19 @@
                     </li>
                     <li class="menu-item {{ $active == 'request' ? 'active' : '' }}">
                         <a href="{{ route('admin.request.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <i class="menu-icon  fa-solid fa-paper-plane fa-sm"></i>
                             <div data-i18n="Analytics">Request</div>
                         </a>
                     </li>
                     <li class="menu-item {{ $active == 'user' ? 'active' : '' }}">
                         <a href="{{ route('admin.user.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <i class="menu-icon fa-solid fa-users fa-sm"></i>
                             <div data-i18n="Analytics">User</div>
                         </a>
                     </li>
                     <li class="menu-item {{ $active == 'transaction' ? 'active open ' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <i class="menu-icon fa-solid  fa-file-invoice fa-sm"></i>
                             <div data-i18n="Account Settings">Transaction</div>
                         </a>
                         <ul class="menu-sub ">
@@ -137,7 +139,7 @@
                     </li>
                     <li class="menu-item {{ $active == 'maintenance' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <i class="menu-icon fa-solid fa-toolbox fa-sm"></i>
                             <div data-i18n="Account Settings">Maintenance Tools</div>
                         </a>
                         <ul class="menu-sub">

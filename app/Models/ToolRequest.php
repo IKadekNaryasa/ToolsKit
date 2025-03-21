@@ -10,6 +10,8 @@ class ToolRequest extends Model
     use HasFactory;
     protected $table = 'requests';
     protected $primaryKey = 'request_code';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'request_code',
         'user_id',
@@ -22,7 +24,7 @@ class ToolRequest extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function details()
+    public function detail()
     {
         return $this->hasMany(RequestDetail::class, 'request_code');
     }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('completion_date')->nullable();
             $table->text('description');
             $table->enum('status', ['in_progress', 'done'])->default('in_progress');
-            $table->decimal('cost', 15, 2);
+            $table->bigInteger('cost')->nullable();
             $table->timestamps();
         });
     }

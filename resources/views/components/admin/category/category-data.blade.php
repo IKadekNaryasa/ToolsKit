@@ -8,9 +8,9 @@
                     <tr>
                         <th>No</th>
                         <th>Category Name</th>
-                        <th>Quantity</th>
+                        <th class="text-center">Quantity</th>
                         <th>Created</th>
-                        <th>Action</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,10 +18,12 @@
                     <tr>
                         <td>{{ $loop->iteration  }}</td>
                         <td>{{ $category->name }}</td>
-                        <td>{{ $category->quantity }}</td>
+                        <td class="text-center">{{ $category->quantity }}</td>
                         <td>{{ $category->created_at->diffForHumans() }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">edit</button>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-warning">
+                                <i class="fa-solid fa-pencil fa-sm"></i>
+                            </button>
                         </td>
                     </tr>
                     @empty

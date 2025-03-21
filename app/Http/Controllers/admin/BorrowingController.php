@@ -13,7 +13,7 @@ class BorrowingController extends Controller
      */
     public function index()
     {
-        $borrowings = Borrowing::with('user')->get();
+        $borrowings = Borrowing::with(['user', 'detail.tool'])->get();
         return view('admin.borrowing.index', [
             'active' => 'transaction',
             'open' => 'borrowing',

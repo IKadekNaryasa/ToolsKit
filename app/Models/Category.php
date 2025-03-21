@@ -22,12 +22,12 @@ class Category extends Model
         return $this->hasMany(Tool::class, 'category_id');
     }
 
-    public function inventories()
+    public function inventory()
     {
         return $this->hasMany(Inventory::class, 'category_id');
     }
 
-    public function requestDetails()
+    public function request()
     {
         return $this->hasMany(RequestDetail::class, 'category_id');
     }

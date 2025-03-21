@@ -10,14 +10,17 @@ use App\Http\Controllers\admin\RequestController;
 use App\Http\Controllers\admin\ReturnController;
 use App\Http\Controllers\admin\ToolController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->name('login');
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->name('login');
+
+Route::post('/auth', [AuthController::class, 'auth'])->name('auth.auth');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [Dashboard::class, 'index'])->name('dashboard.index');

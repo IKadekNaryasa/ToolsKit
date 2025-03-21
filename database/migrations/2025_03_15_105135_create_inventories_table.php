@@ -19,8 +19,8 @@ return new class extends Migration
             $table->bigInteger('quantity');
             $table->string('vendor');
             $table->text('notes');
-            $table->decimal('price', 15, 2);
-            $table->decimal('total', 15, 2);
+            $table->bigInteger('price')->nullable();
+            $table->bigInteger('total')->nullable();
             $table->timestamps();
         });
     }

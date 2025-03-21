@@ -9,11 +9,11 @@
                         <th style="font-size: small;">No</th>
                         <th style="font-size: small;">Category</th>
                         <th style="font-size: small;" class="col-md-2">Date</th>
-                        <th style="font-size: small;">Qty</th>
+                        <th style="font-size: small;" class="text-center">Qty</th>
                         <th style="font-size: small;" class="col-md-2">Vendor</th>
                         <th style="font-size: small;">Notes</th>
                         <th style="font-size: small;" class="col-md-2">Price</th>
-                        <th>Action</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,12 +22,14 @@
                         <td style="font-size: small;">{{ $loop->iteration  }}</td>
                         <td style="font-size: small;">{{ $inventory->category->name }}</td>
                         <td style="font-size: small;">{{ $inventory->date }}</td>
-                        <td style="font-size: small;">{{ $inventory->quantity }}</td>
+                        <td style="font-size: small;" class="text-center">{{ $inventory->quantity }}</td>
                         <td style="font-size: small;">{{ $inventory->vendor }}</td>
                         <td style="font-size: small;">{{ $inventory->notes }}</td>
                         <td style="font-size: small;">Rp. {{ number_format($inventory->total,0,',','.') }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">edit</button>
+                        <td class="justify-content-center align-middle">
+                            <button class="btn btn-sm btn-warning">
+                                <i class="fa-solid fa-pencil fa-sm"></i>
+                            </button>
                         </td>
                     </tr>
                     @empty

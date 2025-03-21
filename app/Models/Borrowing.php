@@ -10,6 +10,9 @@ class Borrowing extends Model
     use HasFactory;
     protected $table = 'borrowings';
     protected $primaryKey = 'borrowing_code';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'borrowing_code',
         'user_id',
@@ -30,12 +33,12 @@ class Borrowing extends Model
         return $this->belongsTo(User::class, 'admin_id');
     }
 
-    public function details()
+    public function detail()
     {
         return $this->hasMany(BorrowingDetail::class, 'borrowing_code');
     }
 
-    public function returns()
+    public function return()
     {
         return $this->hasOne(Returns::class, 'borrowing_code');
     }

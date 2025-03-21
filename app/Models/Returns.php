@@ -26,7 +26,7 @@ class Returns extends Model
         return $this->belongsTo(Borrowing::class, 'borrowing_code');
     }
 
-    public function user()
+    public function admin()
     {
         return $this->belongsTo(User::class);
     }

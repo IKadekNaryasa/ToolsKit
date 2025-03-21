@@ -10,8 +10,8 @@
                         <th style="font-size: small;">Name</th>
                         <th style="font-size: small;">Username</th>
                         <th style="font-size: small;">Contact</th>
-                        <th style="font-size: small;">Status</th>
-                        <th style="font-size: small;">Role</th>
+                        <th style="font-size: small;" class="text-center">Status</th>
+                        <th style="font-size: small;" class="text-center">Role</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -22,12 +22,15 @@
                         <td style="font-size: small;">{{ $user->name  }}</td>
                         <td style="font-size: small;">{{ $user->username  }}</td>
                         <td style="font-size: small;">{{ $user->contact  }}</td>
-                        <td style="font-size: small;">{{ $user->status  }}</td>
-                        <td style="font-size: small;">{{ $user->role  }}</td>
+                        <td style="font-size: small;" class="text-center">{{ $user->status  }}</td>
+                        <td style="font-size: small;" class="text-center">{{ $user->role  }}</td>
                         <td class="d-flex justify-content-center">
-                            <button class="btn btn-sm btn-warning mx-1">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                            <button class="btn btn-sm btn-secondary mx-1">Print</button>
+                            <button class="btn btn-sm btn-warning mx-1">
+                                <i class="fa-solid fa-pencil fa-sm"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="fa-solid fa-trash fa-sm"></i>
+                            </button>
                         </td>
                     </tr>
                     @empty

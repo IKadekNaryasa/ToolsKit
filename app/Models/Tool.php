@@ -26,17 +26,17 @@ class Tool extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function borrowings()
+    public function borrowing()
     {
         return $this->hasMany(BorrowingDetail::class, 'tool_code');
     }
 
-    public function repairs()
+    public function repair()
     {
         return $this->hasMany(Repair::class, 'tool_code');
     }
 
-    public function maintenances()
+    public function maintenance()
     {
         return $this->hasMany(Maintenance::class, 'tool_code');
     }

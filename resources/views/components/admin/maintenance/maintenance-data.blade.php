@@ -11,9 +11,9 @@
                         <th style="font-size: small;" class="col-md-2">Maintenance Date</th>
                         <th style="font-size: small;" class="col-md-2">Finished Date</th>
                         <th style="font-size: small;">Notes</th>
-                        <th style="font-size: small;" class="col-md-2">Status</th>
+                        <th style="font-size: small;" class="col-md-2 text-center">Status</th>
                         <th style="font-size: small;">Cost</th>
-                        <th>Action</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,10 +24,16 @@
                         <td style="font-size: small;">{{ $maintenance->maintenance_date }}</td>
                         <td style="font-size: small;">{{ $maintenance->done_date }}</td>
                         <td style="font-size: small;">{{ $maintenance->description }}</td>
-                        <td style="font-size: small;">{{ $maintenance->status }}</td>
+                        <td style="font-size: small;" class="text-center">{{ $maintenance->status }}</td>
                         <td style="font-size: small;">Rp. {{ number_format($maintenance->cost,0,',','.') }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">edit</button>
+                        <td class="text-center">
+                            @if ($maintenance->status == 'in_progress')
+                            <button class="btn btn-sm btn-primary">
+                                <i class="fa-solid fa-hourglass-start"></i>
+                            </button>
+                            @elseif($maintenance->status == 'done')
+                            <i class="fa-solid fa-check fa-lg"></i>
+                            @endif
                         </td>
                     </tr>
                     @empty

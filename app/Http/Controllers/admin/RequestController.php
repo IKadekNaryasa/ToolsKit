@@ -13,7 +13,8 @@ class RequestController extends Controller
      */
     public function index()
     {
-        $requests = ToolRequest::with('user')->get();
+        $requests = ToolRequest::with(['user', 'detail.category'])->get();
+        // return $requests;
         return view('admin.request.index', [
             'active' => 'request',
             'open' => 'request',
