@@ -11,6 +11,8 @@ use App\Http\Controllers\admin\ReturnController;
 use App\Http\Controllers\admin\ToolController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\IknAuth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,17 +24,22 @@ Route::get('/login', function () {
 
 Route::post('/auth', [AuthController::class, 'auth'])->name('auth.auth');
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [Dashboard::class, 'index'])->name('dashboard.index');
-    Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-    Route::resource('category', CategoryController::class)->except('show');
-    Route::resource('inventory', InventoryController::class)->except('show');
-    Route::resource('tool', ToolController::class)->except('show');
-    Route::resource('request', RequestController::class)->except('show');
-    Route::resource('borrowing', BorrowingController::class)->except('show');
-    Route::resource('return', ReturnController::class)->except('show');
-    Route::resource('repair', RepairController::class)->except('show');
-    Route::resource('maintenance', MaintenanceController::class)->except('show');
-    Route::resource('user', UserController::class)->except('show');
+
+Route::middleware([IknAuth::class, Admin::class])->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [Dashboard::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
+
+        Route::resource('category', CategoryController::class)->except('show');
+        Route::resource('inventory', InventoryController::class)->except('show');
+        Route::resource('tool', ToolController::class)->except('show');
+        Route::resource('request', RequestController::class)->except('show');
+        Route::resource('borrowing', BorrowingController::class)->except('show');
+        Route::resource('return', ReturnController::class)->except('show');
+        Route::resource('repair', RepairController::class)->except('show');
+        Route::resource('maintenance', MaintenanceController::class)->except('show');
+        Route::resource('user', UserController::class)->except('show');
+    });
 });

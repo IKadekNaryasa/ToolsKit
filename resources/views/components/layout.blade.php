@@ -55,6 +55,24 @@
 </head>
 
 <body>
+    @if (session('message'))
+    <div
+        id="errorToast"
+        class="bs-toast toast toast-placement-ex m-2  position-fixed top-0 end-0 bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-delay="2000"
+        data-bs-autohide="true">
+        <div class="toast-header">
+            <i class="bx bx-bell me-2"></i>
+            <div class="me-auto fw-semibold">Success!</div>
+            <small>day</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">{{session('message')}}</div>
+    </div>
+    @endif
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -200,8 +218,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">John Doe</span>
-                                                    <small class="text-muted">Admin</small>
+                                                    <span class="fw-semibold d-block">{{auth()->user()->name}}</span>
+                                                    <small class="text-muted">{{auth()->user()->role}}</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -234,7 +252,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
+                                        <a class="dropdown-item" href="{{ route('auth.logout') }}">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -307,6 +325,15 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
     @stack('script')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorToastEl = document.getElementById("errorToast");
+            if (errorToastEl) {
+                var toast = new bootstrap.Toast(errorToastEl);
+                toast.show();
+            }
+        });
+    </script>
 </body>
 
 </html>

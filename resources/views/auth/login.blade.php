@@ -50,8 +50,44 @@
 </head>
 
 <body>
-    <!-- Content -->
+    @if (session('logout'))
+    <div
+        id="errorToast"
+        class="bs-toast toast toast-placement-ex m-2  position-fixed top-0 end-0 bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-delay="2000"
+        data-bs-autohide="true">
+        <div class="toast-header">
+            <i class="bx bx-bell me-2"></i>
+            <div class="me-auto fw-semibold">Success!</div>
+            <small>day</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">{{session('logout')}}</div>
+    </div>
+    @endif
+    @if (session('error'))
+    <div
+        id="errorToast"
+        class="bs-toast toast toast-placement-ex m-2  position-fixed top-0 end-0 bg-danger"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-delay="2000"
+        data-bs-autohide="true">
+        <div class="toast-header">
+            <i class="bx bx-bell me-2"></i>
+            <div class="me-auto fw-semibold">Success!</div>
+            <small>day</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">{{session('error')}}</div>
+    </div>
+    @endif
 
+    <!-- Content -->
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
@@ -65,7 +101,6 @@
                                     <img src="{{ asset('ikn_sneat/assets/img/icons/brands/toolkit.png') }}" alt="ToolKit" width="50">
                                 </span>
                                 <span class="app-brand-text demo menu-text fw-semibold ms-2" style="text-transform: none; font-size: 20px; color: #333;">ToolsKit</span>
-
                             </a>
                         </div>
                         <!-- /Logo -->
@@ -74,13 +109,17 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Username</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="username"
-                                    name="username"
-                                    placeholder="Enter username"
-                                    autofocus />
+                                <input type="text" value="{{ old('username') }}" class="form-control   @error('username') is-invalid @enderror" id="username" name="username" placeholder="Enter username" aria-describedby="usernameHelp" autofocus />
+                                @error('username')
+                                <div id="usernameHelp" class="form-text text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                @error('login')
+                                <div id="usernameHelp" class="form-text text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
@@ -90,15 +129,19 @@
                                     </a> -->
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        class="form-control"
-                                        name="password"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        aria-describedby="password" />
+                                    <input type="password" id="password" class="form-control   @error('password') is-invalid @enderror" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
+                                @error('password')
+                                <div id="passwordHelp" class="form-text text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                @error('login')
+                                <div id="passwordHelp" class="form-text text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <!-- <div class="mb-3">
                                 <div class="form-check">
@@ -135,9 +178,20 @@
     <script src="{{ asset('ikn_sneat') }}/assets/js/main.js"></script>
 
     <!-- Page JS -->
+    <script src="{{ asset('ikn_sneat') }}/assets/js/ui-toasts.js"></script>
+
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorToastEl = document.getElementById("errorToast");
+            if (errorToastEl) {
+                var toast = new bootstrap.Toast(errorToastEl);
+                toast.show();
+            }
+        });
+    </script>
 </body>
 
 </html>
