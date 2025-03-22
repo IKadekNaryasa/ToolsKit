@@ -23,7 +23,22 @@ class AuthController extends Controller
 
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
-            return redirect()->route('admin.dashboard.index')->with('message', 'Welcome ' . Auth::user()->name);
+
+            $user = Auth::user();
+
+            if (!$user) {
+                Auth::logout();
+                return redirect()->route('login')->withErrors(['login' => 'Authentication failed.']);
+            }
+
+            // return $user;
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard.index')->with('message', 'Welcome ' . $user->name);
+            } elseif ($user->role === 'technician') {
+                return redirect()->route('admin.dashboard.index')->with('message', 'Welcome Teknisi ' . $user->name);
+            } elseif ($user->role === 'head') {
+                return redirect()->route('admin.dashboard.index')->with('message', 'Welcome Head' . $user->name);
+            }
         }
 
         return redirect()->route('login')->withInput()->withErrors(['login' => 'Invalid username or password!']);

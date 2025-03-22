@@ -16,11 +16,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu!');
-        }
-
-        if (Auth::user()->role != 'admin') {
+        if (Auth::user()->role !== 'admin') {
             return redirect()->back()->with('error', 'Access denied!');
         }
 

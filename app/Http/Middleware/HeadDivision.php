@@ -7,18 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IknAuth
+class HeadDivision
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || Auth::user() === null) {
-            Auth::logout();
-            return redirect()->route('login')->with('error', 'Login required!');
+        if (Auth::user()->role !== 'head') {
+            return redirect()->back()->with('error', 'Access denied!');
         }
         return $next($request);
     }

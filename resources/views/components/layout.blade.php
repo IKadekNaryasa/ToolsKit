@@ -62,12 +62,12 @@
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
-        data-bs-delay="2000"
+        data-bs-delay="3000"
         data-bs-autohide="true">
         <div class="toast-header">
             <i class="bx bx-bell me-2"></i>
             <div class="me-auto fw-semibold">Success!</div>
-            <small>day</small>
+            <small>{{ date('l, d F Y') }}</small>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">{{session('message')}}</div>
