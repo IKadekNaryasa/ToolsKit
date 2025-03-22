@@ -51,7 +51,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('ikn_sneat') }}/assets/js/config.js"></script>
 
-    <script src="https://kit.fontawesome.com/9254364d26.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/9254364d26.js" crossorigin="anonymous"></script> -->
 </head>
 
 <body>
@@ -62,7 +62,7 @@
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
-        data-bs-delay="3000"
+        data-bs-delay="1000"
         data-bs-autohide="true">
         <div class="toast-header">
             <i class="bx bx-bell me-2"></i>
@@ -73,6 +73,33 @@
         <div class="toast-body">{{session('message')}}</div>
     </div>
     @endif
+
+    @if ($errors->any())
+    <div
+        id="errorToast"
+        class="bs-toast toast toast-placement-ex m-2  position-fixed top-0 end-0 bg-danger"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-delay="10000"
+        data-bs-autohide="true">
+        <div class="toast-header">
+            <i class="bx bx-bell me-2"></i>
+            <div class="me-auto fw-semibold">Error!</div>
+            <small>{{ date('l, d F Y') }}</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
+
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -98,13 +125,13 @@
                     <!-- Dashboard -->
                     <li class="menu-item {{ $active == 'dashboard' ? 'active' : '' }} ">
                         <a href="{{ route('admin.dashboard.index') }}" class="menu-link">
-                            <i class="menu-icon fa-solid fa-house fa-sm"></i>
+                            <i class="menu-icon bx bxs-home"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
                     <li class="menu-item {{ $active == 'master' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon fa-solid fa-crown fa-sm"></i>
+                            <i class="menu-icon bx bxs-crown"></i>
                             <div data-i18n="Account Settings">Master</div>
                         </a>
                         <ul class="menu-sub">
@@ -127,19 +154,19 @@
                     </li>
                     <li class="menu-item {{ $active == 'request' ? 'active' : '' }}">
                         <a href="{{ route('admin.request.index') }}" class="menu-link">
-                            <i class="menu-icon  fa-solid fa-paper-plane fa-sm"></i>
+                            <i class="menu-icon  bx bxs-paper-plane"></i>
                             <div data-i18n="Analytics">Request</div>
                         </a>
                     </li>
                     <li class="menu-item {{ $active == 'user' ? 'active' : '' }}">
                         <a href="{{ route('admin.user.index') }}" class="menu-link">
-                            <i class="menu-icon fa-solid fa-users fa-sm"></i>
+                            <i class="menu-icon bx bxs-user"></i>
                             <div data-i18n="Analytics">User</div>
                         </a>
                     </li>
                     <li class="menu-item {{ $active == 'transaction' ? 'active open ' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon fa-solid  fa-file-invoice fa-sm"></i>
+                            <i class="menu-icon bx bx-transfer"></i>
                             <div data-i18n="Account Settings">Transaction</div>
                         </a>
                         <ul class="menu-sub ">
@@ -157,7 +184,7 @@
                     </li>
                     <li class="menu-item {{ $active == 'maintenance' ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon fa-solid fa-toolbox fa-sm"></i>
+                            <i class="menu-icon bx bxs-briefcase-alt-2"></i>
                             <div data-i18n="Account Settings">Maintenance Tools</div>
                         </a>
                         <ul class="menu-sub">
@@ -204,49 +231,44 @@
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                    <div class="avatar avatar-online">
+                                    <div class="avatar avatar-{{ auth()->user()->status == 'active' ? 'online' : 'away' }}">
                                         <img src="{{ asset('ikn_sneat') }}/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
-                                                    <div class="avatar avatar-online">
+                                                    <div class="avatar avatar-{{ auth()->user()->status == 'active' ? 'online' : 'away' }}">
                                                         <img src="{{ asset('ikn_sneat') }}/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
                                                     <span class="fw-semibold d-block">{{auth()->user()->name}}</span>
-                                                    <small class="text-muted">{{auth()->user()->role}}</small>
+                                                    <small class="text-muted">{{auth()->user()->role}}</small> |
+                                                    <small class="text-muted"><i class="badge rounded-pill bg-success">
+                                                            {{ auth()->user()->status == 'active' ? 'A' : 'S' }}
+                                                        </i></small>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </span>
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ route('admin.profile') }}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                            data-bs-target="#changePasswordModal">
                                             <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                <span class="flex-grow-1 align-middle">Billing</span>
-                                                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                            </span>
-                                        </a>
+                                            <span class="align-middle">Change Password</span>
+                                        </button>
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
@@ -301,6 +323,64 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+
+    <!-- modal change password -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Change Password</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form action="{{ route('auth.changePassword') }}" method="post">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6 mb-3 form-password-toggle">
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label" for="oldPassword">Old Password</label>
+                                </div>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" id="oldPassword" class="form-control " name="oldPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-0 form-password-toggle">
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label" for="newPassword">New Password</label>
+                                </div>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" id="newPassword" class="form-control " name="newPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                </div>
+                            </div>
+                            <div class="col mb-0 form-password-toggle">
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label" for="confirmNewPassword">Confirm New Password</label>
+                                </div>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" id="confirmNewPassword" class="form-control  " name="confirmNewPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

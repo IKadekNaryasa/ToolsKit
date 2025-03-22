@@ -32,13 +32,15 @@ Route::middleware(['auth'])->group(function () {});
 // custom auth (iknAuth)
 Route::middleware([IknAuth::class])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-
+    Route::post('/changePassword', [AuthController::class, 'changePassword'])->name('auth.changePassword');
+    Route::post('/updateProfile', [AuthController::class, 'updateProfile'])->name('updateProfile');
 
     // admin
     Route::middleware([Admin::class])->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', [Dashboard::class, 'index'])->name('dashboard.index');
             Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
+            Route::get('/profile', [AuthController::class, 'adminProfile'])->name('profile');
 
             Route::resource('category', CategoryController::class)->except('show');
             Route::resource('inventory', InventoryController::class)->except('show');

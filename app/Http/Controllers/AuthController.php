@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use function Symfony\Component\Clock\now;
 
 class AuthController extends Controller
 {
@@ -51,5 +55,56 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login')->with('logout', 'logout success!');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $sanitize = [
+            'oldPassword' => strip_tags($request->input('oldPassword')),
+            'newPassword' => strip_tags($request->input('newPassword')),
+            'confirmNewPassword' => strip_tags($request->input('confirmNewPassword'))
+        ];
+
+        $credential = Validator::make($sanitize, [
+            'oldPassword' => ['required', 'string', 'min:8', 'max:20'],
+            'newPassword' => ['required', 'string', 'min:8', 'max:20'],
+            'confirmNewPassword' => ['required', 'string', 'min:8', 'max:20', 'same:newPassword'],
+        ])->validate();
+
+        $user = Auth::user();
+
+        if (!Hash::check($credential['oldPassword'], $user->getAuthPassword())) {
+            return redirect()->back()->withErrors(['error' => 'Invalid old password!']);
+        }
+
+
+        $update =  User::whereId(Auth::id())->update([
+            'password' => Hash::make($credential['newPassword']),
+            'password_updated_at' => now(),
+        ]);
+
+        if (!$update) {
+            return redirect()->back()->withErrors(['error', 'Failed to update password!']);
+        }
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('logout', 'success to update password,Please login again with new password!');
+    }
+
+    public function adminProfile()
+    {
+        return view('admin.profile', [
+            'active' => '',
+            'open' => '',
+            'link' => ' Profile | ',
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        return $request;
     }
 }
