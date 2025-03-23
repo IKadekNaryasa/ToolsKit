@@ -29,12 +29,10 @@
                         <td style="font-size: small;" class="text-center">{{ $borrowed->status }}</td>
                         <td style="font-size: small;">{{ $borrowed->admin->name }}</td>
                         <td class="justify-content-center">
-                            <button class="btn btn-sm btn-primary"
-                                data-bs-toggle="offcanvas"
+
+                            <i class="bx bx-info-circle text-primary" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasStart{{ $borrowed->borrowing_code }}"
-                                aria-controls="offcanvasStart">
-                                <i class="fa-solid fa-circle-info fa-sm"></i>
-                            </button>
+                                aria-controls="offcanvasStart"></i>
                             <div
                                 class="offcanvas offcanvas-start"
                                 tabindex="-1"

@@ -35,6 +35,10 @@ class AuthController extends Controller
                 return redirect()->route('login')->withErrors(['login' => 'Authentication failed.']);
             }
 
+            if (Auth::user()->password_updated_at === null) {
+                return redirect()->route('changePasswordFirstTime')->with('message', 'Login sucess, change password for the first time to continue!');
+            }
+
             // return $user;
             if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard.index')->with('message', 'Welcome ' . $user->name);
@@ -77,6 +81,36 @@ class AuthController extends Controller
             return redirect()->back()->withErrors(['error' => 'Invalid old password!']);
         }
 
+
+        $update =  User::whereId(Auth::id())->update([
+            'password' => Hash::make($credential['newPassword']),
+            'password_updated_at' => now(),
+        ]);
+
+        if (!$update) {
+            return redirect()->back()->withErrors(['error', 'Failed to update password!']);
+        }
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('logout', 'success to update password,Please login again with new password!');
+    }
+
+    public function changePasswordFirstTime(Request $request)
+    {
+        $sanitize = [
+            'newPassword' => strip_tags($request->input('newPassword')),
+            'confirmNewPassword' => strip_tags($request->input('confirmNewPassword'))
+        ];
+
+        $credential = Validator::make($sanitize, [
+            'newPassword' => ['required', 'string', 'min:8', 'max:20'],
+            'confirmNewPassword' => ['required', 'string', 'min:8', 'max:20', 'same:newPassword'],
+        ])->validate();
+
+        $user = Auth::user();
 
         $update =  User::whereId(Auth::id())->update([
             'password' => Hash::make($credential['newPassword']),

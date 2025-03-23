@@ -25,12 +25,12 @@
                         <td style="font-size: small;" class="text-center">{{ $user->status  }}</td>
                         <td style="font-size: small;" class="text-center">{{ $user->role  }}</td>
                         <td class="d-flex justify-content-center">
-                            <button class="btn btn-sm btn-warning mx-1">
-                                <i class="fa-solid fa-pencil fa-sm"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash fa-sm"></i>
-                            </button>
+                            <form action="admin/aa" method="post" id="userDeleteForm">
+                                @csrf
+                                <input type="hidden" name="userId" value="{{ $user->id }}">
+                                <i class="bx bx-edit text-warning mx-1" type="button"></i>
+                                <i class="bx bx-trash text-danger mx-1" type="button" onclick="confirmUserDelete(event)"></i>
+                            </form>
                         </td>
                     </tr>
                     @empty
@@ -48,5 +48,23 @@
     $(document).ready(function() {
         $('#userTable').DataTable();
     });
+
+    function confirmUserDelete(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('userDeleteForm').submit();
+            }
+        });
+    }
 </script>
 @endpush

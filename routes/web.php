@@ -12,28 +12,40 @@ use App\Http\Controllers\admin\ToolController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\Admin;
+use App\Http\Middleware\ChangePasswordFirstTime;
 use App\Http\Middleware\HeadDivision;
 use App\Http\Middleware\IknAuth;
+use App\Http\Middleware\IknGuest;
 use App\Http\Middleware\Technician;
 use Illuminate\Support\Facades\Route;
 
 // guest
-Route::get('/', function () {
-    return view('auth.login');
-})->name('login');
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-Route::post('/auth', [AuthController::class, 'auth'])->name('auth.auth');
 
-// default auth
-Route::middleware(['auth'])->group(function () {});
+Route::middleware([IknGuest::class])->group(function () {
+    Route::get('/', function () {
+        return view('auth.login');
+    })->name('login');
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
+    Route::post('/auth', [AuthController::class, 'auth'])->name('auth.auth');
+});
+
 
 // custom auth (iknAuth)
 Route::middleware([IknAuth::class])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::post('/changePassword', [AuthController::class, 'changePassword'])->name('auth.changePassword');
     Route::post('/updateProfile', [AuthController::class, 'updateProfile'])->name('updateProfile');
+
+    // password updated for first time
+    Route::middleware([ChangePasswordFirstTime::class])->group(function () {
+        Route::get('/changePasswordForFirstTime', function () {
+            return view('auth.change-password-first-time');
+        })->name('changePasswordFirstTime');
+        Route::post('/changePasswordFirstTime', [AuthController::class, 'changePasswordFirstTime'])->name('auth.changePasswordFirstTime');
+    });
+
 
     // admin
     Route::middleware([Admin::class])->group(function () {
@@ -42,7 +54,7 @@ Route::middleware([IknAuth::class])->group(function () {
             Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
             Route::get('/profile', [AuthController::class, 'adminProfile'])->name('profile');
 
-            Route::resource('category', CategoryController::class)->except('show');
+            Route::resource('category', CategoryController::class)->only(['index', 'store', 'update']);
             Route::resource('inventory', InventoryController::class)->except('show');
             Route::resource('tool', ToolController::class)->except('show');
             Route::resource('request', RequestController::class)->except('show');

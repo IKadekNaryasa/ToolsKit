@@ -24,16 +24,14 @@
                         <td style="font-size: small;" class="text-center">{{ $tool->condition  }}</td>
                         <td style="font-size: small;" class="text-center">{{ $tool->status  }}</td>
                         <td style="font-size: small;">{{ $tool->category->name  }}</td>
-                        <td class="d-flex">
-                            <button class="btn btn-sm btn-warning mx-1">
-                                <i class="fa-solid fa-pencil fa-sm"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash fa-sm"></i>
-                            </button>
-                            <button class="btn btn-sm btn-secondary mx-1">
-                                <i class="fa-solid fa-print fa-sm"></i>
-                            </button>
+                        <td class="d-flex justify-content-center">
+                            <form action="admin/tool" id="toolDeleteForm" method="post">
+                                @csrf
+                                <i class="bx bx-edit bx-xs mx-1  text-warning" type="button"></i>
+                                <input type="hidden" hidden name="tool_code" value="{{ $tool->tool_code }}">
+                                <i class="bx bx-trash bx-xs mx-1  text-danger" type="button" onclick="confirmToolDelete(event)"></i>
+                                <i class="bx bx-printer bx-xs mx-1  text-secondary" type="button"></i>
+                            </form>
                         </td>
                     </tr>
                     @empty
@@ -50,6 +48,24 @@
 <script>
     $(document).ready(function() {
         $('#toolTable').DataTable();
-    });
+    })
+
+    function confirmToolDelete(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('toolDeleteForm').submit();
+            }
+        });
+    }
 </script>
 @endpush

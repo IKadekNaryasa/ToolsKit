@@ -28,11 +28,9 @@
                         <td style="font-size: small;">Rp. {{ number_format($repair->cost,0,',','.') }}</td>
                         <td class="text-center">
                             @if ($repair->status == 'in_progress')
-                            <button class="btn btn-sm btn-primary">
-                                <i class="fa-solid fa-hourglass-start"></i>
-                            </button>
+                            <i class="bx bx-time-five" type="button"></i>
                             @elseif($repair->status == 'done')
-                            <i class="fa-solid fa-check fa-lg"></i>
+                            <i class="bx bx-check"></i>
                             @endif
                         </td>
                     </tr>

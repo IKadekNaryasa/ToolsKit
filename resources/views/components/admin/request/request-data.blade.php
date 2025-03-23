@@ -27,7 +27,7 @@
                                 data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasStart{{ $request->request_code }}"
                                 aria-controls="offcanvasStart">
-                                <i class="fa-solid fa-circle-info fa-sm"></i>
+                                <i class="bx bx-info-circle text-primary"></i>
                             </button>
                             <div
                                 class="offcanvas offcanvas-start"

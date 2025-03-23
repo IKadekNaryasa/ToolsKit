@@ -25,12 +25,9 @@
                         <td style="font-size: small;">{{ $return->admin->name }}</td>
                         <td style="font-size: small;">{{ $return->status }}</td>
                         <td class="d-flex justify-content-center">
-                            <button class="btn btn-sm btn-primary"
-                                data-bs-toggle="offcanvas"
+                            <i class="bx bx-info-circle text-primary" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasStart{{ $return->id }}"
-                                aria-controls="offcanvasStart">
-                                <i class="fa-solid fa-circle-info fa-sm"></i>
-                            </button>
+                                aria-controls="offcanvasStart"></i>
                             <div
                                 class="offcanvas offcanvas-start"
                                 tabindex="-1"

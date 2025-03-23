@@ -62,7 +62,7 @@
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
-        data-bs-delay="1000"
+        data-bs-delay="3000"
         data-bs-autohide="true">
         <div class="toast-header">
             <i class="bx bx-bell me-2"></i>
@@ -81,7 +81,7 @@
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
-        data-bs-delay="10000"
+        data-bs-delay="5000"
         data-bs-autohide="true">
         <div class="toast-header">
             <i class="bx bx-bell me-2"></i>
@@ -403,6 +403,7 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @stack('script')
     <script>

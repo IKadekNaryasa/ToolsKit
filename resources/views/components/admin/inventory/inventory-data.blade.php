@@ -13,7 +13,7 @@
                         <th style="font-size: small;" class="col-md-2">Vendor</th>
                         <th style="font-size: small;">Notes</th>
                         <th style="font-size: small;" class="col-md-2">Price</th>
-                        <th class="text-center">Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,10 +26,10 @@
                         <td style="font-size: small;">{{ $inventory->vendor }}</td>
                         <td style="font-size: small;">{{ $inventory->notes }}</td>
                         <td style="font-size: small;">Rp. {{ number_format($inventory->total,0,',','.') }}</td>
-                        <td class="justify-content-center align-middle">
-                            <button class="btn btn-sm btn-warning">
-                                <i class="fa-solid fa-pencil fa-sm"></i>
-                            </button>
+                        <td class="justify-content-center">
+                            <a href="">
+                                <i class="bx bx-edit bx-sm text-warning "></i>
+                            </a>
                         </td>
                     </tr>
                     @empty
