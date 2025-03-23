@@ -25,8 +25,7 @@ class InventoryFactory extends Factory
             'quantity' => 5,
             'vendor' => fake()->sentence(rand(3, 5)),
             'notes' => fake()->text(),
-            'price' => fake()->randomFloat(2, 50000, 250000),
-            'total' => fake()->randomFloat(2, 200000, 10000000),
+            'price' => fake()->randomFloat(2, 500000, 10000000),
         ];
     }
 }

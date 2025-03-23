@@ -34,7 +34,7 @@
                                     <label class="form-label" for="name">Category Name</label>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" id="name" class="form-control @error('name') invalid
+                                    <input type="text" id="name" required class="form-control @error('name') invalid
                                     @enderror" value="{{ old('name') }}" name="name" style="text-transform:capitalize;" autofocus placeholder="type category name" />
                                 </div>
                                 @error('name')

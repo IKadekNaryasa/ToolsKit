@@ -109,7 +109,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Username</label>
-                                <input type="text" value="{{ old('username') }}" class="form-control   @error('username') is-invalid @enderror" id="username" name="username" placeholder="Enter username" aria-describedby="usernameHelp" autofocus />
+                                <input type="text" required value="{{ old('username') }}" class="form-control   @error('username') is-invalid @enderror" id="username" name="username" placeholder="Enter username" aria-describedby="usernameHelp" autofocus />
                                 @error('username')
                                 <div id="usernameHelp" class="form-text text-danger">
                                     {{ $message }}
@@ -129,7 +129,7 @@
                                     </a> -->
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control   @error('password') is-invalid @enderror" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <input type="password" required id="password" class="form-control   @error('password') is-invalid @enderror" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                                 @error('password')

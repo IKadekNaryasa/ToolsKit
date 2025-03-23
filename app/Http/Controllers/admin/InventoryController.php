@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class InventoryController extends Controller
 {
@@ -18,7 +21,8 @@ class InventoryController extends Controller
             'active' => 'master',
             'open' => 'inventory',
             'link' => 'Inventory | ',
-            'inventories' => $inventories
+            'inventories' => $inventories,
+            'categories' => Category::all()
         ]);
     }
 
@@ -35,7 +39,35 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sanitize = [
+            'category_id' => strip_tags($request->input('category')),
+            'date' => strip_tags($request->input('date')),
+            'quantity' => strip_tags($request->input('qty')),
+            'vendor' => strip_tags($request->input('vendor')),
+            'notes' => strip_tags($request->input('notes')),
+            'price' => strip_tags($request->input('price')),
+        ];
+
+        $credential = Validator::make($sanitize, [
+            'category_id' => ['required', 'exists:categories,id'],
+            'date' => ['required', 'date'],
+            'quantity' => ['required', 'numeric'],
+            'vendor' => ['required', 'string'],
+            'notes' => ['required', 'string'],
+            'price' => ['required', 'numeric']
+        ]);
+
+        if ($credential->fails()) {
+            return redirect()->back()->withErrors($credential)->with('errorType', 'store')->withInput();
+        }
+
+        DB::transaction(function () use ($credential) {
+            $validatedData = $credential->validated();
+            Inventory::create($validatedData);
+            Category::where('id', $validatedData['category_id'])->increment('quantity', $validatedData['quantity']);
+        });
+
+        return redirect()->back()->with('message', 'Success to add inventory!');
     }
 
     /**
@@ -59,7 +91,43 @@ class InventoryController extends Controller
      */
     public function update(Request $request, Inventory $inventory)
     {
-        //
+        $sanitize = [
+            'category_id' => strip_tags($request->input('category')),
+            'date' => strip_tags($request->input('date')),
+            'quantity' => strip_tags($request->input('qty')),
+            'vendor' => strip_tags($request->input('vendor')),
+            'notes' => strip_tags($request->input('notes')),
+            'price' => strip_tags($request->input('price')),
+        ];
+
+        $credential = Validator::make($sanitize, [
+            'category_id' => ['required', 'exists:categories,id'],
+            'date' => ['required', 'date'],
+            'quantity' => ['required', 'numeric'],
+            'vendor' => ['required', 'string'],
+            'notes' => ['required', 'string'],
+            'price' => ['required', 'numeric']
+        ]);
+
+        if ($credential->fails()) {
+            return redirect()->back()->withErrors($credential)->with(['errorFrom' => 'update'])->withInput($request->all() + ['id' => $inventory->id]);
+        }
+
+        DB::transaction(function () use ($credential, $inventory) {
+            $validatedData = $credential->validate();
+            $oldInventoryQuantity = $inventory->quantity;
+
+            $inventory->update($validatedData);
+
+            $category = Category::find($validatedData['category_id']);
+            if ($category) {
+                $category->update([
+                    'quantity' => DB::raw("quantity - $oldInventoryQuantity + " . $validatedData['quantity'])
+                ]);
+            }
+        });
+
+        return redirect()->back()->with('message', 'Success to update inventory!');
     }
 
     /**

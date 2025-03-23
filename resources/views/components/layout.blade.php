@@ -345,7 +345,7 @@
                                     <label class="form-label" for="oldPassword">Old Password</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="oldPassword" class="form-control " name="oldPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <input type="password" id="oldPassword" class="form-control " required name="oldPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
@@ -356,7 +356,7 @@
                                     <label class="form-label" for="newPassword">New Password</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="newPassword" class="form-control " name="newPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <input type="password" id="newPassword" class="form-control " required name="newPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
@@ -365,7 +365,7 @@
                                     <label class="form-label" for="confirmNewPassword">Confirm New Password</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="confirmNewPassword" class="form-control  " name="confirmNewPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <input type="password" id="confirmNewPassword" class="form-control  " required name="confirmNewPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>

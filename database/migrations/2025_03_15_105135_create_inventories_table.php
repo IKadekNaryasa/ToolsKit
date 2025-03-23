@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('vendor');
             $table->text('notes');
             $table->bigInteger('price')->nullable();
-            $table->bigInteger('total')->nullable();
             $table->timestamps();
         });
     }

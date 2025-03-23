@@ -58,7 +58,7 @@
                                 <label class="form-label" for="nameForUpdate">Category Name</label>
                             </div>
                             <div class="input-group">
-                                <input type="text" id="nameForUpdate" class="form-control @error('nameForUpdate') invalid
+                                <input type="text" required id="nameForUpdate" class="form-control @error('nameForUpdate') invalid
                                      @enderror" value="{{ old('nameForUpdate') ? old('nameForUpdate') : $category->name }}" name="nameForUpdate" style="text-transform:capitalize;" autofocus placeholder="type category name" />
                             </div>
                             @error('nameForUpdate')

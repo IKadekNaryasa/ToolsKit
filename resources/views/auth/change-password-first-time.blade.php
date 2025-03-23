@@ -131,7 +131,7 @@
                                     <label class="form-label" for="newPassword">New Password</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="newPassword" class="form-control   @error('newPassword') is-invalid @enderror" name="newPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <input type="password" id="newPassword" required class="form-control   @error('newPassword') is-invalid @enderror" name="newPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                                 @error('newPassword')
@@ -150,7 +150,7 @@
                                     <label class="form-label" for="confirmNewPassword">New Password</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="confirmNewPassword" class="form-control   @error('confirmNewPassword') is-invalid @enderror" name="confirmNewPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <input type="password" required id="confirmNewPassword" class="form-control   @error('confirmNewPassword') is-invalid @enderror" name="confirmNewPassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                                 @error('confirmNewPassword')
