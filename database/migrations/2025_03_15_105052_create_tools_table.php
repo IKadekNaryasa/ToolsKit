@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('tools', function (Blueprint $table) {
             $table->string('tool_code')->primary();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('condition');
             $table->enum('status', ['available', 'borrowed', 'maintenance', 'repair', 'damaged'])->default('available');
             $table->foreignUuid('category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();

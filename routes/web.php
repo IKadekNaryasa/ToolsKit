@@ -56,7 +56,7 @@ Route::middleware([IknAuth::class])->group(function () {
 
             Route::resource('category', CategoryController::class)->only(['index', 'store', 'update']);
             Route::resource('inventory', InventoryController::class)->only(['index', 'store', 'update']);
-            Route::resource('tool', ToolController::class)->except('show');
+            Route::resource('tool', ToolController::class)->only(['index', 'store']);
             Route::resource('request', RequestController::class)->except('show');
             Route::resource('borrowing', BorrowingController::class)->except('show');
             Route::resource('return', ReturnController::class)->except('show');
