@@ -8,6 +8,7 @@ use App\Models\Tool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ToolController extends Controller
 {
@@ -108,6 +109,7 @@ class ToolController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -121,7 +123,42 @@ class ToolController extends Controller
      */
     public function update(Request $request, Tool $tool)
     {
-        //
+        $sanitize = [
+            'category_id' => strip_tags($request->input('category_id')),
+            'name' => strip_tags(ucwords(strtolower($request->input('name')))),
+            'condition' => strip_tags($request->input('condition')),
+            'status' => strip_tags($request->input('status'))
+        ];
+
+        $credential = Validator::make($sanitize, [
+            'category_id' => ['required', 'exists:categories,id'],
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('tools', 'name')->ignore($tool->tool_code, 'tool_code')
+            ],
+            'condition' => ['required', 'string'],
+            'status' => ['required', 'in:available,repair,maintenance,damaged,borrowed']
+        ]);
+
+        if ($credential->fails()) {
+            return redirect()->back()->withErrors($credential)->with('toolType', 'update')->withInput($request->all() + ['tool_code' => $tool->tool_code]);
+        }
+
+        $validatedData = $credential->validate();
+        $categoryQuantity = Category::whereId($validatedData['category_id'])->value('quantity');
+        $categoryName = Category::whereId($validatedData['category_id'])->value('name');
+        $toolCountById = Tool::where('category_id', $validatedData['category_id'])->count();
+
+        if ($toolCountById < $categoryQuantity) {
+            DB::transaction(function () use ($validatedData, $tool) {
+                $tool->update($validatedData);
+            });
+
+            return redirect()->back()->with('message', 'Success to update tool!');
+        }
+
+        return redirect()->back()->withErrors(['error' => "Quantity for category $categoryName is full"])->with('toolType', 'update')->withInput($request->all() + ['tool_code' => $tool->tool_code]);
     }
 
     /**

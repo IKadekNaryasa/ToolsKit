@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <x-admin.tool.tool-data :tools="$tools"></x-admin.tool.tool-data>
+            <x-admin.tool.tool-data :tools="$tools" :categories="$categories"></x-admin.tool.tool-data>
         </div>
     </div>
 

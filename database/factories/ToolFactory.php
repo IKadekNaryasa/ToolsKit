@@ -18,7 +18,7 @@ class ToolFactory extends Factory
     public function definition(): array
     {
         return [
-            'tool_code' => fake()->unique()->sentence(1),
+            'tool_code' => "TL032025" . STR::random(4),
             'name' => fake()->sentence(rand(1, 2)),
             'condition' => 'Baik',
             'status' => 'available',
