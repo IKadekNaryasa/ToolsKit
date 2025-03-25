@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="category" class="form-label">Category</label>
-                                <select name="category" id="category" class="form-control mb-3" required>
+                                <select name="category" id="category" class="form-control " required>
                                     <option selected disabled>choose category ...</option>
                                     @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>

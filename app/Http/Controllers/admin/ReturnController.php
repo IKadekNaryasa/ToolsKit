@@ -13,7 +13,7 @@ class ReturnController extends Controller
      */
     public function index()
     {
-        $returns = Returns::with(['admin', 'borrowing.detail'])->get();
+        $returns = Returns::with(['admin', 'borrowing.detail'])->orderBy('created_at', 'desc')->get();
         return view('admin.return.index', [
             'active' => 'transaction',
             'open' => 'return',

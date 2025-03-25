@@ -16,7 +16,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::with('category')->get();
+        $inventories = Inventory::with('category')->orderBy('created_at', 'desc')->get();
         return view('admin.inventory.index', [
             'active' => 'master',
             'open' => 'inventory',

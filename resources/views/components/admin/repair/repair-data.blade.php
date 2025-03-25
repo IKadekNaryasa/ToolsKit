@@ -21,7 +21,7 @@
                     <tr>
                         <td style="font-size: small;">{{ $loop->iteration  }}</td>
                         <td style="font-size: small;">{{ $repair->tool->tool_code }}</td>
-                        <td style="font-size: small;">{{ $repair->repair }}</td>
+                        <td style="font-size: small;">{{ $repair->repair_date }}</td>
                         <td style="font-size: small;">{{ $repair->completion_date }}</td>
                         <td style="font-size: small;">{{ $repair->description }}</td>
                         <td style="font-size: small;" class="text-center">{{ $repair->status }}</td>

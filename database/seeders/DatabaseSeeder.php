@@ -55,11 +55,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Inventory::factory(5)->create();
-        Tool::factory(21)->create();
-        Tool::factory(1)->maintenance()->create();
-        Tool::factory(1)->repair()->create();
-        Tool::factory(1)->damaged()->create();
-        Tool::factory(1)->borrowed()->create();
+        // Tool::factory(21)->create();
+        // Tool::factory(1)->maintenance()->create();
+        // Tool::factory(1)->repair()->create();
+        // Tool::factory(1)->damaged()->create();
+        // Tool::factory(1)->borrowed()->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',

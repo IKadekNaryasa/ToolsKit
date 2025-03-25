@@ -13,7 +13,7 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        $maintenances = Maintenance::whereHas('tool', fn($query) => $query->where('status', 'maintenance'))->get();
+        $maintenances = Maintenance::with('tool')->orderBy('created_at', 'desc')->get();
         return view('admin.maintenance.index', [
             'active' => 'maintenance',
             'open' => 'maintenance',

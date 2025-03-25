@@ -22,7 +22,19 @@
                         <td style="font-size: small;">{{ $tool->tool_code  }}</td>
                         <td style="font-size: small;">{{ $tool->name  }}</td>
                         <td style="font-size: small;" class="text-center">{{ $tool->condition  }}</td>
-                        <td style="font-size: small;" class="text-center">{{ $tool->status  }}</td>
+                        <td style="font-size: small;" class="text-center">
+                            @if ($tool->status === 'available')
+                            <i class="badge bg-success" style="text-transform: capitalize;">Available</i>
+                            @elseif($tool->status === 'repair')
+                            <i class="badge bg-primary" style="text-transform: capitalize;">In Repair</i>
+                            @elseif($tool->status === 'maintenance')
+                            <i class="badge bg-warning" style="text-transform: capitalize;">In Mainteance</i>
+                            @elseif($tool->status === 'damaged')
+                            <i class="badge bg-danger" style="text-transform: capitalize;">Damaged</i>
+                            @elseif($tool->status === 'borrowed')
+                            <i class="badge bg-info" style="text-transform: capitalize;">Borrowed</i>
+                            @endif
+                        </td>
                         <td style="font-size: small;">{{ $tool->category->name  }}</td>
                         <td class="d-flex justify-content-center">
                             @if ($tool->status === 'available')

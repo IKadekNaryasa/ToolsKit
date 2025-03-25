@@ -16,9 +16,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('tool_code');
             $table->foreign('tool_code')->references('tool_code')->on('tools')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('repair');
+            $table->date('repair_date');
             $table->date('completion_date')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->enum('status', ['in_progress', 'done'])->default('in_progress');
             $table->bigInteger('cost')->nullable();
             $table->timestamps();

@@ -13,7 +13,7 @@ class RequestController extends Controller
      */
     public function index()
     {
-        $requests = ToolRequest::with(['user', 'detail.category'])->get();
+        $requests = ToolRequest::with(['user', 'detail.category'])->orderBy('created_at', 'desc')->get();
         // return $requests;
         return view('admin.request.index', [
             'active' => 'request',

@@ -22,7 +22,7 @@
                         <td style="font-size: small;">{{ $loop->iteration  }}</td>
                         <td style="font-size: small;">{{ $maintenance->tool->tool_code }}</td>
                         <td style="font-size: small;">{{ $maintenance->maintenance_date }}</td>
-                        <td style="font-size: small;">{{ $maintenance->done_date }}</td>
+                        <td style="font-size: small;">{{ $maintenance->completion_date }}</td>
                         <td style="font-size: small;">{{ $maintenance->description }}</td>
                         <td style="font-size: small;" class="text-center">{{ $maintenance->status }}</td>
                         <td style="font-size: small;">Rp. {{ number_format($maintenance->cost,0,',','.') }}</td>

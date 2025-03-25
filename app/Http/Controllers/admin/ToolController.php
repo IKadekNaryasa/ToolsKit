@@ -4,11 +4,15 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Maintenance;
+use App\Models\Repair;
 use App\Models\Tool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+
+use function Symfony\Component\Clock\now;
 
 class ToolController extends Controller
 {
@@ -17,7 +21,7 @@ class ToolController extends Controller
      */
     public function index()
     {
-        $tools = Tool::with('category')->get();
+        $tools = Tool::with('category')->orderBy('created_at', 'desc')->get();
         return view('admin.tool.index', [
             'active' => 'master',
             'open' => 'tool',
@@ -68,11 +72,10 @@ class ToolController extends Controller
             $categoryWords = explode(' ', strtoupper($categoryName));
 
             $prefix = count($categoryWords) === 1 ? substr($categoryWords[0], 0, 2) : implode('', array_map(fn($word) => $word[0], $categoryWords));
-            $dateCode = now()->format('ymd');
+            $dateCode = now()->format('ym');
             $nexToIndex = str_pad($toolCountById + 1, 3, '0', STR_PAD_LEFT);
 
             $toolCode = "{$prefix}{$dateCode}{$nexToIndex}";
-
             while (Tool::where('tool_code', $toolCode)->exists()) {
                 $toolCountById++;
                 $nexToIndex = str_pad($toolCountById + 1, 3, '0', STR_PAD_LEFT);
@@ -93,6 +96,18 @@ class ToolController extends Controller
             ];
             DB::transaction(function () use ($data) {
                 Tool::create($data);
+                if ($data['status'] === 'repair') {
+                    Repair::create([
+                        'tool_code' => $data['tool_code'],
+                        'repair_date' => now()
+                    ]);
+                }
+                if ($data['status'] === 'maintenance') {
+                    Maintenance::create([
+                        'tool_code' => $data['tool_code'],
+                        'maintenance_date' => now()
+                    ]);
+                }
             });
 
             return redirect()->back()->with('message', 'Success to add new tool!');
@@ -145,7 +160,12 @@ class ToolController extends Controller
             return redirect()->back()->withErrors($credential)->with('toolType', 'update')->withInput($request->all() + ['tool_code' => $tool->tool_code]);
         }
 
+        if ($tool->status !== 'available') {
+            return redirect()->back()->withErrors(['error' => 'Tool status not valid to update!']);
+        }
+
         $validatedData = $credential->validate();
+
         $categoryQuantity = Category::whereId($validatedData['category_id'])->value('quantity');
         $categoryName = Category::whereId($validatedData['category_id'])->value('name');
         $toolCountById = Tool::where('category_id', $validatedData['category_id'])->count();
@@ -153,6 +173,20 @@ class ToolController extends Controller
         if ($toolCountById < $categoryQuantity) {
             DB::transaction(function () use ($validatedData, $tool) {
                 $tool->update($validatedData);
+
+                if ($validatedData['status'] === 'repair') {
+                    Repair::create([
+                        'tool_code' => $tool->tool_code,
+                        'repair_date' => now(),
+                    ]);
+                }
+
+                if ($validatedData['status'] === 'maintenance') {
+                    Maintenance::create([
+                        'tool_code' => $tool->tool_code,
+                        'maintenance_date' => now()
+                    ]);
+                }
             });
 
             return redirect()->back()->with('message', 'Success to update tool!');
