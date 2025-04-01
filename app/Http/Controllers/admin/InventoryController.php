@@ -110,7 +110,7 @@ class InventoryController extends Controller
         ]);
 
         if ($credential->fails()) {
-            return redirect()->back()->withErrors($credential)->with(['errorFrom' => 'update'])->withInput($request->all() + ['id' => $inventory->id]);
+            return redirect()->route('admin.inventory.index')->withErrors($credential)->with(['errorFrom' => 'update'])->withInput($request->all() + ['id' => $inventory->id]);
         }
 
         DB::transaction(function () use ($credential, $inventory) {
@@ -127,7 +127,7 @@ class InventoryController extends Controller
             }
         });
 
-        return redirect()->back()->with('message', 'Success to update inventory!');
+        return redirect()->route('admin.inventory.index')->with('message', 'Success to update inventory!');
     }
 
     /**

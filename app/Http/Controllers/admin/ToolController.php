@@ -48,7 +48,7 @@ class ToolController extends Controller
             'category_id' => strip_tags($request->input('category_id')),
             'name' => strip_tags(ucwords(strtolower($request->input('name')))),
             'condition' => strip_tags($request->input('condition')),
-            'status' => strip_tags($request->input('status'))
+            'status' => strip_tags($request->input('status')),
         ];
 
         $credential = Validator::make($sanitize, [
@@ -59,7 +59,7 @@ class ToolController extends Controller
         ]);
 
         if ($credential->fails()) {
-            return redirect()->back()->withErrors($credential)->with('toolType', 'store')->withInput();
+            return redirect()->route('admin.tool.index')->withErrors($credential)->with('toolType', 'store')->withInput();
         }
 
         $validatedData = $credential->validate();
@@ -85,35 +85,35 @@ class ToolController extends Controller
             $toolExists = Tool::where('tool_code', $toolCode)->value('tool_code');
 
             if ($toolExists !== null) {
-                return redirect()->back()->withErrors(['error' => 'Failed to create new Tool Code!'])->with('toolType', 'store')->withInput();
+                return redirect()->route('admin.tool.index')->withErrors(['error' => 'Failed to create new Tool Code!'])->with('toolType', 'store')->withInput();
             }
             $data = [
                 'tool_code' => $toolCode,
                 'name' => $validatedData['name'],
                 'condition' => $validatedData['condition'],
                 'status' => $validatedData['status'],
-                'category_id' => $validatedData['category_id']
+                'category_id' => $validatedData['category_id'],
             ];
             DB::transaction(function () use ($data) {
                 Tool::create($data);
                 if ($data['status'] === 'repair') {
                     Repair::create([
                         'tool_code' => $data['tool_code'],
-                        'repair_date' => now()
+                        'repair_date' => now(),
                     ]);
                 }
                 if ($data['status'] === 'maintenance') {
                     Maintenance::create([
                         'tool_code' => $data['tool_code'],
-                        'maintenance_date' => now()
+                        'maintenance_date' => now(),
                     ]);
                 }
             });
 
-            return redirect()->back()->with('message', 'Success to add new tool!');
+            return redirect()->route('admin.tool.index')->with('message', 'Success to add new tool!');
         }
 
-        return redirect()->back()->withErrors(['error' => "Quantity for category $categoryName is full"])->with('toolType', 'store')->withInput();
+        return redirect()->route('admin.tool.index')->withErrors(['error' => "Quantity for category $categoryName is full"])->with('toolType', 'store')->withInput();
     }
 
     /**
@@ -142,7 +142,8 @@ class ToolController extends Controller
             'category_id' => strip_tags($request->input('category_id')),
             'name' => strip_tags(ucwords(strtolower($request->input('name')))),
             'condition' => strip_tags($request->input('condition')),
-            'status' => strip_tags($request->input('status'))
+            'status' => strip_tags($request->input('status')),
+            'notes' => strip_tags($request->input('notes'))
         ];
 
         $credential = Validator::make($sanitize, [
@@ -153,15 +154,16 @@ class ToolController extends Controller
                 Rule::unique('tools', 'name')->ignore($tool->tool_code, 'tool_code')
             ],
             'condition' => ['required', 'string'],
+            'notes' => ['string'],
             'status' => ['required', 'in:available,repair,maintenance,damaged,borrowed']
         ]);
 
         if ($credential->fails()) {
-            return redirect()->back()->withErrors($credential)->with('toolType', 'update')->withInput($request->all() + ['tool_code' => $tool->tool_code]);
+            return redirect()->route('admin.tool.index')->withErrors($credential)->with('toolType', 'update')->withInput($request->all() + ['tool_code' => $tool->tool_code]);
         }
 
         if ($tool->status !== 'available') {
-            return redirect()->back()->withErrors(['error' => 'Tool status not valid to update!']);
+            return redirect()->route('admin.tool.index')->withErrors(['error' => 'Tool status not valid to update!']);
         }
 
         $validatedData = $credential->validate();
@@ -170,7 +172,7 @@ class ToolController extends Controller
         $categoryName = Category::whereId($validatedData['category_id'])->value('name');
         $toolCountById = Tool::where('category_id', $validatedData['category_id'])->count();
 
-        if ($toolCountById < $categoryQuantity) {
+        if ($tool->category_id == $validatedData['category_id'] || $toolCountById < $categoryQuantity) {
             DB::transaction(function () use ($validatedData, $tool) {
                 $tool->update($validatedData);
 
@@ -178,21 +180,23 @@ class ToolController extends Controller
                     Repair::create([
                         'tool_code' => $tool->tool_code,
                         'repair_date' => now(),
+                        'description' => $validatedData['notes']
                     ]);
                 }
 
                 if ($validatedData['status'] === 'maintenance') {
                     Maintenance::create([
                         'tool_code' => $tool->tool_code,
-                        'maintenance_date' => now()
+                        'maintenance_date' => now(),
+                        'description' => $validatedData['notes']
                     ]);
                 }
             });
 
-            return redirect()->back()->with('message', 'Success to update tool!');
+            return redirect()->route('admin.tool.index')->with('message', 'Success to update tool!');
         }
 
-        return redirect()->back()->withErrors(['error' => "Quantity for category $categoryName is full"])->with('toolType', 'update')->withInput($request->all() + ['tool_code' => $tool->tool_code]);
+        return redirect()->route('admin.tool.index')->withErrors(['error' => "Quantity for category $categoryName is full"])->with('toolType', 'update')->withInput($request->all() + ['tool_code' => $tool->tool_code]);
     }
 
     /**

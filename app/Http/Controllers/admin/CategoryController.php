@@ -94,10 +94,10 @@ class CategoryController extends Controller
 
         $update = $category->update(['name' => $credential['nameForUpdate']]);
         if (!$update) {
-            return redirect()->back()->withErrors('error', 'Failed to update category!')->withInput();
+            return redirect()->route('admin.category.index')->withErrors('error', 'Failed to update category!')->withInput();
         }
 
-        return redirect()->back()->with('message', 'Success to update category!');
+        return redirect()->route('admin.category.index')->with('message', 'Success to update category!');
     }
 
     /**

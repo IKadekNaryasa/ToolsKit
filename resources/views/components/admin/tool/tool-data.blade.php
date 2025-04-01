@@ -116,8 +116,8 @@
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="name">Status</label>
                             </div>
-                            <select name="status" required id="" class="form-control">
-                                <option selected value="{{ $tool->status }}">{{$tool->status}}</option>
+                            <select name="status" required id="status-{{ $tool->tool_code }}" class="form-control">
+                                <option selected value="{{ $tool->status }}">{{ ucfirst($tool->status) }}</option>
                                 <option value="available">Available</option>
                                 <option value="repair">Repair</option>
                                 <option value="maintenance">Maintenance</option>
@@ -130,12 +130,15 @@
                             </div>
                             @enderror
                         </div>
+                        <div class="col-md-12 mb-3" id="notesField-{{ $tool->tool_code }}" style="display: none;">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="notes">Notes</label>
+                            </div>
+                            <textarea class="form-control" name="notes" id="notes-{{ $tool->tool_code }}" placeholder="Enter additional notes"></textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
@@ -160,4 +163,40 @@
         $('#toolTable').DataTable();
     })
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let toolModals = document.querySelectorAll('.modal');
+
+        toolModals.forEach(function(modal) {
+            let toolCode = modal.id.replace('editToolModal-', '');
+            let statusSelect = document.getElementById(`status-${toolCode}`);
+            let notesField = document.getElementById(`notesField-${toolCode}`);
+            let notesInput = document.getElementById(`notes-${toolCode}`);
+
+            if (!statusSelect || !notesField || !notesInput) {
+                console.error(`Element tidak ditemukan untuk tool: ${toolCode}`);
+                return;
+            }
+
+            function toggleNotesField() {
+                let selectedValue = statusSelect.value;
+
+                if (selectedValue === "repair" || selectedValue === "maintenance") {
+                    notesField.style.display = "block";
+                    notesInput.setAttribute("required", "required");
+                } else {
+                    notesField.style.display = "none";
+                    notesInput.removeAttribute("required");
+                    notesInput.value = "";
+                }
+            }
+
+            toggleNotesField();
+
+            statusSelect.addEventListener("change", toggleNotesField);
+        });
+    });
+</script>
+
+
 @endpush

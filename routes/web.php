@@ -60,8 +60,8 @@ Route::middleware([IknAuth::class])->group(function () {
             Route::resource('request', RequestController::class)->except('show');
             Route::resource('borrowing', BorrowingController::class)->except('show');
             Route::resource('return', ReturnController::class)->except('show');
-            Route::resource('repair', RepairController::class)->except('show');
-            Route::resource('maintenance', MaintenanceController::class)->except('show');
+            Route::resource('repair', RepairController::class)->only(['index', 'update']);
+            Route::resource('maintenance', MaintenanceController::class)->only(['index', 'update']);
             Route::resource('user', UserController::class)->except('show');
         });
     });

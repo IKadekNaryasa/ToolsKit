@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Repair;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Tool;
+use Illuminate\Support\Facades\Validator;
 
 class RepairController extends Controller
 {
@@ -59,7 +62,43 @@ class RepairController extends Controller
      */
     public function update(Request $request, Repair $repair)
     {
-        //
+        $sanitize = [
+            'date' => strip_tags($request->input('date')),
+            'cost' => strip_tags($request->input('cost')),
+            'status' => strip_tags($request->input('status')),
+            'notes' => strip_tags($request->input('notes'))
+        ];
+
+        $credential = Validator::make($sanitize, [
+            'date' => ['required', 'date'],
+            'cost' => ['required', 'numeric'],
+            'notes' => ['required', 'string'],
+            'status' => [
+                'required',
+                'in:in_progress,done'
+            ]
+        ]);
+
+        if ($credential->fails()) {
+            return redirect()->route('admin.repair.index')->withErrors($credential)->with(['errorFrom' => 'update'])->withInput($request->all() + ['id' => $repair->id]);
+        }
+
+        $validatedData = $credential->validate();
+        DB::transaction(function () use ($validatedData, $repair) {
+            $repair->update([
+                'completion_date' => $validatedData['date'],
+                'status' => $validatedData['status'],
+                'cost' => $validatedData['cost'],
+                'description' => $validatedData['notes']
+            ]);
+
+            if ($validatedData['status'] === 'done') {
+                $tool = Tool::find($repair->tool_code);
+                $tool->update(['status' => 'available']);
+            }
+        });
+
+        return redirect()->route('admin.repair.index')->with('message', 'success to confirm repair!');
     }
 
     /**

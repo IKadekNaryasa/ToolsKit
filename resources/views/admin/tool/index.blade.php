@@ -58,7 +58,7 @@
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="name">Tool Condition</label>
                                 </div>
-                                <input type="text" class="form-control" name="condition" required value="{{ old('condition') }}" placeholder="type tool condition" style="text-transform: capitalize;">
+                                <input type="text" class="form-control" name="condition" required value="{{ old('condition') ? old('condition') : 'Good' }}" placeholder="type tool condition" style="text-transform: capitalize;">
                                 @error('condition')
                                 <div id="conditionHelp" class="form-text text-danger">
                                     {{ $message }}
@@ -69,9 +69,8 @@
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="name">Status</label>
                                 </div>
-                                <select name="status" required id="" class="form-control">
-                                    <option selected disabled>Choose status...</option>
-                                    <option value="available">Available</option>
+                                <select name="status" required id="status" class="form-control">
+                                    <option selected value="available">Available</option>
                                     <option value="repair">Repair</option>
                                     <option value="maintenance">Maintenance</option>
                                     <option value="damaged">Damaged</option>
@@ -86,9 +85,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
@@ -103,4 +99,6 @@
         });
     </script>
     @endif
+
+
 </x-layout>
