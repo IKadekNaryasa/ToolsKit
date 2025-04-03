@@ -26,7 +26,15 @@
                         <td style="font-size: small;" class="text-center">{{ $borrowed->borrow_date }}</td>
                         <td style="font-size: small;" class="text-center">{{ $borrowed->return_date }}</td>
                         <td style="font-size: small;" class="text-center">{{ $borrowed->notes }}</td>
-                        <td style="font-size: small;" class="text-center">{{ $borrowed->status }}</td>
+                        <td style="font-size: small;" class="text-center">
+                            @if ( $borrowed->status === 'borrowed')
+                            <i class="badge bg-info" style="text-transform: capitalize;">borrowed</i>
+                            @elseif($borrowed->status === 'returned')
+                            <i class="badge bg-success" style="text-transform: capitalize;">returned</i>
+                            @elseif($borrowed->status === 'return_requested')
+                            <i class="badge bg-warning" style="text-transform: capitalize;">return requested</i>
+                            @endif
+                        </td>
                         <td style="font-size: small;">{{ $borrowed->admin->name }}</td>
                         <td class="justify-content-center">
 

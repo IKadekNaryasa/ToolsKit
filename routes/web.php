@@ -53,12 +53,19 @@ Route::middleware([IknAuth::class])->group(function () {
             Route::get('/', [Dashboard::class, 'index'])->name('dashboard.index');
             Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
             Route::get('/profile', [AuthController::class, 'adminProfile'])->name('profile');
+            Route::get('/borrowing/new-transaction', [BorrowingController::class, 'newTransaction'])->name('borrowing.new-transaction');
+            Route::post('/borrowing/transUser', [BorrowingController::class, 'transUser'])->name('borrowing.transUser');
+            Route::get('/borrowing/trans-tool', [BorrowingController::class, 'transToolView'])->name('borrowing.trans-tool');
+            Route::post('/borrowing/transTool', [BorrowingController::class, 'transTool'])->name('borrowing.transTool');
+            Route::post('/borrowing/transToolRemove', [BorrowingController::class, 'transToolRemove'])->name('borrowing.transToolRemove');
+            Route::get('/borrowing/trans-cart', [BorrowingController::class, 'cart'])->name('borrowing.trans-cart');
+            Route::post('/borrowing/cancel', [BorrowingController::class, 'cancel'])->name('borrowing.cancel');
 
             Route::resource('category', CategoryController::class)->only(['index', 'store', 'update']);
             Route::resource('inventory', InventoryController::class)->only(['index', 'store', 'update']);
             Route::resource('tool', ToolController::class)->only(['index', 'store', 'update']);
             Route::resource('request', RequestController::class)->except('show');
-            Route::resource('borrowing', BorrowingController::class)->except('show');
+            Route::resource('borrowing', BorrowingController::class)->only(['index', 'store']);
             Route::resource('return', ReturnController::class)->except('show');
             Route::resource('repair', RepairController::class)->only(['index', 'update']);
             Route::resource('maintenance', MaintenanceController::class)->only(['index', 'update']);
