@@ -127,18 +127,4 @@ class AuthController extends Controller
 
         return redirect()->route('login')->with('logout', 'success to update password,Please login again with new password!');
     }
-
-    public function adminProfile()
-    {
-        return view('admin.profile', [
-            'active' => '',
-            'open' => '',
-            'link' => ' Profile | ',
-        ]);
-    }
-
-    public function updateProfile(Request $request)
-    {
-        return $request;
-    }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\ReturnController;
 use App\Http\Controllers\admin\ToolController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GlobalUserController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\ChangePasswordFirstTime;
 use App\Http\Middleware\HeadDivision;
@@ -36,7 +37,7 @@ Route::middleware([IknGuest::class])->group(function () {
 Route::middleware([IknAuth::class])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::post('/changePassword', [AuthController::class, 'changePassword'])->name('auth.changePassword');
-    Route::post('/updateProfile', [AuthController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/updateProfile', [GlobalUserController::class, 'updateProfile'])->name('updateProfile');
 
     // password updated for first time
     Route::middleware([ChangePasswordFirstTime::class])->group(function () {
@@ -52,7 +53,7 @@ Route::middleware([IknAuth::class])->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', [Dashboard::class, 'index'])->name('dashboard.index');
             Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
-            Route::get('/profile', [AuthController::class, 'adminProfile'])->name('profile');
+            Route::get('/profile', [GlobalUserController::class, 'adminProfile'])->name('profile');
             Route::get('/borrowing/new-transaction', [BorrowingController::class, 'newTransaction'])->name('borrowing.new-transaction');
             Route::post('/borrowing/transUser', [BorrowingController::class, 'transUser'])->name('borrowing.transUser');
             Route::get('/borrowing/trans-tool', [BorrowingController::class, 'transToolView'])->name('borrowing.trans-tool');
@@ -69,7 +70,7 @@ Route::middleware([IknAuth::class])->group(function () {
             Route::resource('return', ReturnController::class)->except('show');
             Route::resource('repair', RepairController::class)->only(['index', 'update']);
             Route::resource('maintenance', MaintenanceController::class)->only(['index', 'update']);
-            Route::resource('user', UserController::class)->except('show');
+            Route::resource('user', UserController::class)->only(['index', 'store', 'update', 'destroy']);
         });
     });
 

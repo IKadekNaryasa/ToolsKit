@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'id' => Str::uuid(),
             'username' => fake()->unique()->userName(),
             'password' => static::$password ??= Hash::make('12345678'),
-            'contact' => fake()->phoneNumber(),
+            'contact' => '08' . fake()->numerify('##########'),
             'name' => fake()->name(),
             'role' => 'admin',
             'status' => 'active',

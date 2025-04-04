@@ -36,13 +36,17 @@
                     <label for="name" class="form-label">Name</label>
                     <input class="form-control" type="text" id="name" name="name" value="{{auth()->user()->name}}" autofocus />
                 </div>
+                <div class="mb-3 col-md-6" hidden>
+                    <label for="user_id" class="form-label">id</label>
+                    <input class="form-control" type="hidden" hidden id="user_id" name="user_id" value="{{auth()->user()->id}}" />
+                </div>
                 <div class="mb-3 col-md-6">
                     <label for="username" class="form-label">username</label>
-                    <input class="form-control" type="text" id="username" name="username" value="{{auth()->user()->username}}" autofocus />
+                    <input class="form-control" type="text" id="username" name="username" value="{{auth()->user()->username}}" />
                 </div>
                 <div class="mb-3 col-md-6">
                     <label for="contact" class="form-label">contact</label>
-                    <input class="form-control" type="text" id="contact" name="contact" value="{{auth()->user()->contact}}" autofocus />
+                    <input class="form-control" type="number" id="contact" name="contact" value="{{auth()->user()->contact}}" />
                 </div>
             </div>
             <div class="mt-2">
